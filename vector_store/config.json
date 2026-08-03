@@ -1,0 +1,16 @@
+{
+  "chunk_size": 512,
+  "overlap": 50,
+  "model": "text-embedding-3-small",
+  "index_path": "vector_store/",
+  "manifest": "vector_store/index_manifest.md",
+  "sources": [
+    ".agents/core/brain.md",
+    ".agents/core/communication.md",
+    ".agents/knowledge/architecture.md",
+    ".agents/knowledge/code_style.md",
+    "overview/tracker.md",
+    "overview/session.md"
+  ],
+  "notes": "chunk_size=512 tokens por fragmento. overlap=50 tokens de traslape entre fragmentos para mantener contexto en búsquedas semánticas."
+}
