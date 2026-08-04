@@ -45,8 +45,8 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 
 1. Identificar framework del proyecto (Flutter → `pubspec.yaml`; Node → `package.json`; etc.).
 2. Comparar carpetas raíz contra las carpetas estándar conocidas del framework.
-3. Cualquier carpeta no estándar → inspeccionar contenido para clasificar (ver Clasificación semántica).
-4. No ignorar archivos sin categoría: referir en `overview/work.md` o mover a `overview/context/`.
+3. Clasificación y migración agnóstica: recorrer toda carpeta o subdirectorio fuera del estándar del framework (ej. `Overview/`, `cosasqueolvide/`, `docs/`, `legacy/`, etc.), leer su contenido interno y migrar/consolidar automáticamente en `overview/` según la tabla semántica sin depender de los nombres del directorio contenedor.
+4. Relocalización activa de metadatos: no ignorar archivos sin categoría; extraer y relocalizar documentación, notas de negocio o trackers hallados en subdirectorios no estándar a `overview/context/` o al tracker canónico correspondiente para cero archivos huérfanos.
 
 ### Reconocimiento de acrónimos estándar
 
@@ -54,7 +54,7 @@ Reconocer automáticamente sin listas rígidas: `i18n`, `l10n`, `auth`, `routes`
 
 ### Clasificación semántica por contenido
 
-Al encontrar carpeta o archivo no mapeado al framework, inspeccionar contenido interno:
+Al encontrar cualquier carpeta o archivo no mapeado al framework, inspeccionar su contenido interno independientemente del nombre de la carpeta:
 
 | Señales en contenido | Clasificar como |
 |---|---|
@@ -70,12 +70,12 @@ Al encontrar carpeta o archivo no mapeado al framework, inspeccionar contenido i
 - Si existe colisión (`Overview/` vs `overview/`): mapear alias, usar ruta lowercase como canónica.
 - En Linux/Mac (case-sensitive): verificar con `ls` antes de asumir que no existe.
 
-### Política de no ignorar
+### Política de relocalización activa y no ignorar
 
-Ningún archivo encontrado durante discovery puede ignorarse silenciosamente. Opciones:
+Ningún archivo de documentación, notas de negocio o tracker hallado en subdirectorios no estándar puede ignorarse silenciosamente o quedar huérfano. Opciones:
 
-1. Mapeado a categoría conocida → mover/referenciar ahí.
-2. Contexto de dominio no mapeable → `overview/context/`.
+1. Mapeado a categoría conocida → relocalizar/consolidar en `overview/`, `overview/trackers/` u `overview/history/`.
+2. Contexto de dominio o metadatos sueltos → extraer y relocalizar activamente a `overview/context/`.
 3. Ambiguo → referenciar en `overview/work.md` con nota `[pendiente clasificar]`.
 
 ## Cierre
