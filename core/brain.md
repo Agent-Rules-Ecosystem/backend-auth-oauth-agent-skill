@@ -34,7 +34,9 @@ Las siguientes señales disparan el protocolo completo de bootstrap (discovery +
 Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents", "bootstrap .agents"):
 
 1. **Leer el core completo**: `path_map.md`, `communication.md`, `brain.md`, `commands.md` y `AGENTS.md`.
-2. **Auditar `overview/learning.md`**: por cada bullet en `## 📌 Propuestas de mejora`, verificar si ya está implementado en los archivos del core o en los archivos del proyecto.
+2. **Auditar `overview/learning.md`**: por cada bullet en `## 📌 Propuestas de mejora`, aplicar el **Filtro Agnóstico (Escudo Anti-parches)**:
+   - ❌ **RECHAZAR**: Snippets de código fuente, propiedades/widgets específicos, soluciones de sintaxis concreta o comandos CLI rígidos.
+   - ✅ **PERMITIR**: Únicamente procesos de diagnóstico agnósticos, reglas de gobernanza de agentes o patrones de arquitectura neutrales. Si una propuesta contiene código o comandos específicos, descartarla o abstraerla a proceso de diagnóstico antes de evaluar su promoción.
 3. **Promover las cumplidas**: mover cada propuesta verificada como implementada → al final de `## 📜 Histórico de mejoras aplicadas` con formato `- [YYYY-MM-DD] Descripción breve`.
 4. **Conservar las pendientes**: dejar sin modificar los bullets que aún no están implementados en el core.
 5. **Continuar con el flujo normal del core**: Inicio → Discovery → verificar `overview/` → trabajar.
@@ -117,7 +119,7 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 - Actualizar tracker correspondiente, sesión y trabajo. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente de `work.md`.
 - Si validación falla o no puede ejecutarse: marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
-- Si hay mejora candidata al core: agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
+- Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
 - Una vez promovida al repo oficial: mover al Histórico como una línea. Eliminar el bullet activo.
 
 ## Calidad

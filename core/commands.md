@@ -70,10 +70,11 @@ Protocolo de cierre de sesión. El agente debe:
 Registrar un aprendizaje candidato en `overview/learning.md`.
 
 El agente debe:
-1. Abrir `overview/learning.md`.
-2. Agregar bajo `## 📌 Propuestas de mejora` un bullet con el texto indicado.
-3. Si el archivo no existe, crearlo desde `templates/learning.md`.
-4. Confirmar: `Aprendizaje registrado en overview/learning.md.`
+1. Validar el texto con el **Filtro Agnóstico** (`brain.md`): rechazar código específico, snippets de UI o comandos CLI rígidos. Si contiene código o comandos, abstraer a regla o proceso de diagnóstico agnóstico.
+2. Abrir `overview/learning.md`.
+3. Agregar bajo `## 📌 Propuestas de mejora` un bullet con el texto agnóstico.
+4. Si el archivo no existe, crearlo desde `templates/learning.md`.
+5. Confirmar: `Aprendizaje registrado en overview/learning.md.`
 
 Ejemplo de uso:
 ```
