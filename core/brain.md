@@ -40,12 +40,13 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 - Leer core y `overview/session.md`, `overview/work.md`, `overview/trackers/progress.md`.
 - Si falta `overview/` o archivos base, crearlos desde `.agents/templates/`.
 - Si falta `overview/architecture.md`, crearlo desde plantilla antes de trabajar.
+- **Registro preventivo previo a ejecución (Pre-execution Work Logging)**: Al recibir un requerimiento o bug, actualizar `overview/work.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar cualquier acción. En caso de reporte de bug, incluir una hipótesis breve de causa raíz (5-7 palabras). Derivar automáticamente 1 o 2 mejoras/tareas asociadas a los pendientes para garantizar tolerancia a desconexión, corte de luz o agotamiento de tokens.
 
 ### Discovery dinámico por framework
 
 1. Identificar framework del proyecto (Flutter → `pubspec.yaml`; Node → `package.json`; etc.).
-2. Comparar carpetas raíz contra las carpetas estándar conocidas del framework.
-3. Clasificación y migración agnóstica: recorrer toda carpeta o subdirectorio fuera del estándar del framework (ej. `Overview/`, `cosasqueolvide/`, `docs/`, `legacy/`, etc.), leer su contenido interno y migrar/consolidar automáticamente en `overview/` según la tabla semántica sin depender de los nombres del directorio contenedor.
+2. Comparar carpetas raíz contra las carpetas estándar conocidas del framework (para Flutter, consultar `.agents/knowledge/flutter_structure.md`).
+3. Inspección recursiva automática de toda carpeta no estándar: identificar de forma estricta las carpetas estándar del framework detectado y procesar automáticamente cualquier otro directorio raíz (incluyendo subcarpetas anidadas) mediante inspección semántica de contenido para su relocalización a `overview/` sin omitir ninguna por ser no-estándar.
 4. Relocalización activa de metadatos: no ignorar archivos sin categoría; extraer y relocalizar documentación, notas de negocio o trackers hallados en subdirectorios no estándar a `overview/context/` o al tracker canónico correspondiente para cero archivos huérfanos.
 
 ### Reconocimiento de acrónimos estándar

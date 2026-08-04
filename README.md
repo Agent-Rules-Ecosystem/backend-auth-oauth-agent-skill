@@ -13,7 +13,7 @@ Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido
 ## Instalación
 
 ```bash
-git submodule add https://github.com/tu-usuario/flutter-agent-rules.git .agents
+git submodule add https://github.com/xolotl-hub/flutter-agent-rules.git .agents
 ```
 
 Instalar adaptador de `.agents/adapters/` que reconozca agente. Crear `overview/` desde `.agents/templates/`. Ambos forman parte del repositorio Flutter; `.agents/` conserva reglas y `overview/` conserva estado del proyecto.
