@@ -24,6 +24,9 @@
 | Progreso | `overview/trackers/progress.md` | Inicio/cierre |
 | Contenido | `overview/trackers/content_*.md` | Si aplica |
 | Historial | `overview/history/` | Al resumir |
+| Contexto de dominio | `overview/context/` | Bajo demanda |
+
+> `overview/context/` es para archivos de dominio no mapeables al framework ni al estado de sesión: contexto de negocio, changelogs de contenido, datos de referencia de la app. Distinto de `trackers/` (estado) e `history/` (sesiones).
 
 ## Alias heredados
 
