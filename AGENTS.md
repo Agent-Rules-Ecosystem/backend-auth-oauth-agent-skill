@@ -1,38 +1,29 @@
 ---
 name: agent-rules-governance
-description: Rules for managing shared team skills, repository write permissions, and Pull Request governance.
+description: Bootstrap and governance for shared Flutter agent rules.
 ---
 
-# Gobernanza y Seguridad de Reglas (`flutter-agent-rules`)
+# Flutter Agent Rules
 
-## 1. Protección de Repositorio Central (GitHub)
-- **Repositorio Privado o Protegido:** El repositorio central de reglas (`flutter-agent-rules`) debe tener la rama `main` protegida contra pushes directos no autorizados.
-- **Flujo de Pull Request (PR):** Si otros desarrolladores desean sugerir nuevas reglas o cambios en `.agents/`, deben hacer un PR que requiere tu aprobación explícita.
-- **Prohibición de Push Automático en Equipos:** El agente nunca ejecutará `git push` a `origin/main` en entornos compartidos sin verificación de credenciales y autorización del propietario del repo.
+## Bootstrap obligatorio
 
-> [!CRITICAL]
-> REGLAS INVIOLABLES DE OPERACIÓN PARA CUALQUIER AGENTE (ANTIGRAVITY / GEMINI / CURSOR / CODEX / CLAUDE).
-> ANTES DE RESPONDER O GENERAR CÓDIGO, DEBES CARGAR Y CUMPLIR ESTRICTAMENTE:
-> 1. [core/communication.md](file:///c:/Users/termo/Documents/GitHub/flutter-agent-rules/core/communication.md) -> Modo Cavernícola, Ahorro de Tokens, Log 1 Línea.
-> 2. [core/brain.md](file:///c:/Users/termo/Documents/GitHub/flutter-agent-rules/core/brain.md) -> Cambios Quirúrgicos, Protocolo 2 Fases, Contexto Flutter.
+Antes de responder o editar, leer y cumplir:
 
-## CARGA Y SEPARACIÓN DE CONTEXTO
+1. `.agents/core/path_map.md`
+2. `.agents/core/communication.md`
+3. `.agents/core/brain.md`
 
-> [!TIP]
-> Para cualquier duda sobre ubicaciones de archivos, consultar el mapa canónico: [core/path_map.md](file:///c:/Users/termo/Documents/GitHub/flutter-agent-rules/core/path_map.md).
+Para cualquier tarea que inspeccione o cambie código del proyecto, antes de analizar o responder cargar `overview/session.md`, `overview/work.md` y `overview/trackers/progress.md`. Si falta `overview/` o uno de esos archivos, crearlo desde `.agents/templates/`. Si falta `overview/architecture.md`, crearlo desde su plantilla.
 
-### 1. Reglas Globales y Estáticas (Leídas desde el submódulo `.agents/`)
-- **Obligatorio en cada respuesta:**
-  - `.agents/core/path_map.md`
-  - `.agents/core/communication.md`
-  - `.agents/core/brain.md`
-- **Bajo Demanda:**
-  - `.agents/knowledge/architecture.md`
-  - `.agents/knowledge/code_style.md`
-  - `.agents/knowledge/release_checklist.md`
+Las reglas globales viven solo en `.agents/`. Si agente no descubre `.agents/AGENTS.md`, instalar adaptador mínimo desde `.agents/adapters/`; nunca duplicar reglas. Al editar este repositorio oficial directamente, usar rutas locales equivalentes (`core/`, `templates/`, etc.).
 
-### 2. Memoria y Estado Local del Proyecto (Guardado en `overview/` en la raíz del proyecto)
-- **Obligatorio al iniciar y finalizar sesión:**
-  - `overview/session.md` (Memoria episódica)
-  - `overview/tasks.md` (Backlog y tareas activas)
-  - `overview/tracker.md` (Rastreador Mermaid de rutas/archivos)
+## Estado local versionado
+
+Crear `overview/` desde `.agents/templates/` al iniciar proyecto. Al inicio y cierre, cargar/actualizar:
+
+- `overview/session.md`
+- `overview/work.md`
+- `overview/trackers/progress.md`
+- `overview/learning.md` cuando surja mejora candidata
+
+`overview/history/` conserva sesiones antiguas. Cambios a reglas globales solo ocurren en repositorio oficial con aprobación del propietario.

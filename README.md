@@ -1,40 +1,23 @@
-# 🚀 Flutter Agent Rules (`flutter-agent-rules`)
+# Flutter Agent Rules
 
-A centralized, agent-agnostic repository of workflow rules, system prompts, clean architecture guidelines, and persistent memory protocols for Flutter projects. 
+Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido/tokens, conserva continuidad y exige calidad verificable. Se instala como submódulo `.agents/`; reglas globales son independientes del proyecto.
 
-Designed to be integrated as a **Git Submodule** (`.agents`) across all your Flutter codebases. Supports **Antigravity / Gemini CLI, Cursor IDE, GitHub Copilot, Codex, and Claude Code**.
+## Qué aporta
 
----
+1. Comunicación concisa para ahorrar tokens sin bajar calidad.
+2. Trackers separados de arquitectura, trabajo, progreso y contenido.
+3. Memoria versionada del proyecto: sesión, historial y aprendizajes candidatos.
+4. Validación explícita: `verificado`, `no verificado` o `conflicto`.
+5. Adaptadores mínimos para Codex, Claude, Gemini/Antigravity y Cursor; nunca se duplican reglas.
 
-## 🌟 Key Features
-
-1. **Multi-Agent Compatibility & Path Map:** Universal entry point (`AGENTS.md`) and canonical path directory (`core/path_map.md`) compatible with all major AI coding assistants.
-2. **Token Saver & Caveman Mode:** Directives in `core/communication.md` to force ultra-concise, code-first responses and single-line log output.
-3. **2-Phase Workflow Protocol:** Bootstrap initialization & strict post-task verification (`flutter analyze` + Mermaid tracker update).
-4. **Clean Architecture & File Limits:** Enforces maximum line counts (<250-300 lines) and modular widget extraction.
-5. **Separate Dynamic Memory:** Keeps rules static in `.agents/` while storing project-specific memory in `overview/` at the project root.
-6. **Mermaid Route Tracking:** Visual route & module progress diagrams rendering natively in VS Code / Cursor / GitHub.
-
----
-
-## ⚙️ Quick Setup (Git Submodule)
-
-In any Flutter project repository, run:
+## Instalación
 
 ```bash
 git submodule add https://github.com/tu-usuario/flutter-agent-rules.git .agents
 ```
 
----
+Instalar adaptador de `.agents/adapters/` que reconozca agente. Crear `overview/` desde `.agents/templates/`. Ambos forman parte del repositorio Flutter; `.agents/` conserva reglas y `overview/` conserva estado del proyecto.
 
-## 🇪🇸 Versión en Español
+## Contenido contrastado
 
-### Descripción General
-Repositorio centralizado e independiente de agente con reglas de flujo de trabajo, instrucciones del sistema, arquitectura limpia en Flutter y protocolos de memoria persistente.
-
-### Características Principales
-- **Compatibilidad Universal:** Funciona con Antigravity, Cursor, Copilot y Claude Code via `.agents/AGENTS.md`.
-- **Modo Cavernícola & Ahorro de Tokens:** Respuestas directas al código, sin relleno y con log de 1 línea.
-- **Protocolo de 2 Fases:** Inicio automatizado y fase de cierre con `flutter analyze` y actualización de Mermaid.
-- **Límite de Líneas (<250-300 líneas):** Reglas para refactorizar y extraer widgets/diálogos independientes.
-- **Memoria Separada por Proyecto:** Mantiene las reglas en `.agents/` y el estado dinámico en `overview/`.
+Cada agente registra datos en su tracker. Un dato es `verificado` cuando al menos dos coinciden, las fuentes son compatibles y no hay conflicto abierto. Registro final: dato, valor, fuentes, fecha y estado.

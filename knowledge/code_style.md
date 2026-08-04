@@ -1,11 +1,8 @@
-# REGLAS DE CÓDIGO Y ESTILO (FLUTTER / DART)
+# Estilo Flutter / Dart
 
-> [!IMPORTANT]
-> **Estas reglas aplican a TODOS los proyectos.** No requiere copia local. Cargar bajo demanda cuando se vaya a escribir o refactorizar código Dart/Flutter. El agente puede agregar reglas nuevas aquí vía el Protocolo de Auto-Aprendizaje (Sección 5 de `core/brain.md`).
-
-## CONVENCIONES DE ESTILO
-- Usar `const` siempre que sea posible para optimizar el árbol de widgets.
-- Límite estricto de ~250-300 líneas por archivo `.dart`.
-- Evitar métodos `_buildX()` dentro de la clase que retornen Widgets; extraer a un nuevo `StatelessWidget`.
-- Dispose obligatorio para `TextEditingController`, `AnimationController` y `StreamSubscription`.
-- Manejo de estados centralizado vía Riverpod (`StateNotifier` / `NotifierProvider`).
+- Usar `const` cuando aplique.
+- Mantener archivos Dart idealmente bajo 250 líneas; máximo 300.
+- Extraer widgets o diálogos extensos de pantallas principales.
+- Liberar `TextEditingController`, `AnimationController` y `StreamSubscription`.
+- Centralizar estado con patrón elegido por proyecto. Si usa Riverpod, separar vista de providers/notifiers.
+- En `DropdownButtonFormField`, usar `initialValue`; evitar `value` deprecado.
