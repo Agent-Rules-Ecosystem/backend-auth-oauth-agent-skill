@@ -9,9 +9,10 @@ description: Bootstrap and governance for shared Flutter agent rules.
 
 Antes de responder o editar, leer y cumplir:
 
-1. `.agents/core/path_map.md`
-2. `.agents/core/communication.md`
+1. `.agents/core/communication.md` ← **primero siempre; rige todo lo que sigue**
+2. `.agents/core/path_map.md`
 3. `.agents/core/brain.md`
+4. `.agents/core/commands.md`
 
 **Triggers de arranque** — las siguientes frases o condiciones disparan el protocolo completo (discovery + `overview/` + mapeo de archivos):
 
@@ -19,6 +20,7 @@ Antes de responder o editar, leer y cumplir:
 - "nuevo proyecto" / "inicializar" / "bootstrap" / "empieza" en el primer mensaje.
 - Ausencia de `overview/session.md` al comenzar cualquier tarea de código.
 - Primer mensaje de conversación cuando el proyecto tiene `.agents/` pero no `overview/`.
+- Cualquier mensaje que comience con `$` → reconocer como $-comando según `core/commands.md` y ejecutar el protocolo correspondiente.
 
 Para cualquier tarea que inspeccione o cambie código del proyecto, antes de analizar o responder cargar `overview/session.md`, `overview/work.md` y `overview/trackers/progress.md`. Actualizar `overview/work.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar (Registro preventivo previo a ejecución); en reporte de bug incluir hipótesis breve (5-7 palabras). Si falta `overview/` o uno de esos archivos, crearlo desde `.agents/templates/`. Si falta `overview/architecture.md`, crearlo desde su plantilla.
 
@@ -31,6 +33,7 @@ Crear `overview/` desde `.agents/templates/` al iniciar proyecto. Al inicio y ci
 - `overview/session.md`
 - `overview/work.md`
 - `overview/trackers/progress.md`
+- `overview/trackers/architecture.md` cuando aplique
 - `overview/context/` para archivos de dominio no mapeables
 - `overview/learning.md` cuando surja mejora candidata
 

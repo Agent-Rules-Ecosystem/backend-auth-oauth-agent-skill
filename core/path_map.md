@@ -4,10 +4,11 @@
 
 | Recurso | Ruta | Carga |
 |---|---|---|
+| Comunicación | `.agents/core/communication.md` | Obligatoria — **leer primero** |
 | Router | `.agents/AGENTS.md` | Obligatoria |
 | Adaptadores | `.agents/adapters/` | Al instalar |
-| Comunicación | `.agents/core/communication.md` | Obligatoria |
 | Brain | `.agents/core/brain.md` | Obligatoria |
+| Comandos | `.agents/core/commands.md` | Obligatoria |
 | Conocimiento | `.agents/knowledge/` | Bajo demanda |
 | Plantillas | `.agents/templates/` | Al iniciar |
 | Skills | `.agents/skills/` | Bajo demanda |
@@ -23,10 +24,12 @@
 | Arquitectura | `overview/trackers/architecture.md` | Bajo demanda |
 | Progreso | `overview/trackers/progress.md` | Inicio/cierre |
 | Contenido | `overview/trackers/content_*.md` | Si aplica |
+| Modularización Contenido | `overview/trackers/content/<cat>/<item>.md` | Bajo demanda |
 | Historial | `overview/history/` | Al resumir |
-| Contexto de dominio | `overview/context/` | Bajo demanda |
+| Contexto de dominio | `overview/context/` | Inicio/bajo demanda |
 
-> `overview/context/` es para archivos de dominio no mapeables al framework ni al estado de sesión: contexto de negocio, changelogs de contenido, datos de referencia de la app. Distinto de `trackers/` (estado) e `history/` (sesiones).
+> `overview/context/` es para archivos de dominio no mapeables al framework ni al estado de sesión: contexto de negocio, changelogs de contenido, datos de referencia de la app. Se leen al reanudar como checkpoints.
+
 
 ## Alias heredados
 

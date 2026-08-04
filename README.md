@@ -4,11 +4,14 @@ Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido
 
 ## Qué aporta
 
-1. Comunicación concisa para ahorrar tokens sin bajar calidad.
-2. Trackers separados de arquitectura, trabajo, progreso y contenido.
-3. Memoria versionada del proyecto: sesión, historial y aprendizajes candidatos.
-4. Validación explícita: `verificado`, `no verificado` o `conflicto`.
-5. Adaptadores mínimos para Codex, Claude, Gemini/Antigravity y Cursor; nunca se duplican reglas.
+1. **Comunicación concisa** — modo cavernícola + ahorro de tokens sin bajar calidad técnica.
+2. **Trackers separados** — arquitectura, trabajo, progreso y contenido por agente.
+3. **Memoria versionada** — sesión con firma de Agente, historial de intentos incremental y aprendizajes candidatos.
+4. **Handoff de Agente** — protocolo para cambiar de modelo sin perder estado ni repetir trabajo fallido.
+5. **Historial de intentos firmado** — cada bug registra quién intentó qué y quién lo resolvió, con causa raíz y solución.
+6. **$-Comandos** — atajos explícitos (`$boot`, `$status`, `$close`, `$learn`, `$work`) para disparar protocolos cuando el bootstrap automático falla o es incompleto.
+7. **Validación explícita** — `verificado`, `no verificado` o `conflicto`; nunca presentar como validado sin evidencia.
+8. **Adaptadores mínimos** — Codex, Claude, Gemini/Antigravity y Cursor; sin duplicar reglas.
 
 ## Instalación
 
@@ -16,7 +19,18 @@ Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido
 git submodule add https://github.com/xolotl-hub/flutter-agent-rules.git .agents
 ```
 
-Instalar adaptador de `.agents/adapters/` que reconozca agente. Crear `overview/` desde `.agents/templates/`. Ambos forman parte del repositorio Flutter; `.agents/` conserva reglas y `overview/` conserva estado del proyecto.
+Instalar adaptador de `.agents/adapters/` que reconozca el agente. Crear `overview/` desde `.agents/templates/`. Ambos forman parte del repositorio Flutter: `.agents/` conserva reglas globales y `overview/` conserva el estado local del proyecto.
+
+## Uso rápido
+
+| Escribir | Resultado |
+|---|---|
+| `$boot` | Bootstrap completo + handoff si cambió el agente |
+| `$status` | Estado actual en 5 líneas |
+| `$close` | Cierre de sesión con validación |
+| `$learn [texto]` | Registrar aprendizaje candidato |
+| `$work [descripción]` | Registrar tarea o bug nuevo |
+| `ejecuta .agents` | Bootstrap completo + auditoría de learning |
 
 ## Contenido contrastado
 
