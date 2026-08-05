@@ -10,6 +10,14 @@ Tipos: `tarea`, `bug`, `deuda`. Estados: `pendiente`, `en progreso`, `bloqueado`
 
 ---
 
+## ✅ Completados (Historial)
+
+| ID | Tipo | Resuelto por (Agente) | Causa Raíz / Resumen Solución | Fecha |
+|---|---|---|---|---|
+| [ID] | tarea/bug/deuda | [Modelo vX] | [Resumen breve de la solución aplicada] | YYYY-MM-DD |
+
+---
+
 ## 📋 Historial de Intentos
 
 <!-- Formato por entrada:
@@ -26,6 +34,6 @@ Tipos: `tarea`, `bug`, `deuda`. Estados: `pendiente`, `en progreso`, `bloqueado`
 Reglas:
 - Mismo día → actualizar la fila existente de esa fecha (no duplicar).
 - Diferente día → nueva fila con fecha + firma del Agente.
-- Al resolver → marcar estado en la tabla principal como `hecho` + completar bloque "Resuelto por".
+- Al resolver → marcar estado en la tabla principal como `hecho` + trasladar a completados.
 - Nunca borrar intentos previos.
 -->

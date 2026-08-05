@@ -8,4 +8,12 @@
 |---|---|---|---|---|
 | p1 | YYYY-MM-DD | `$close` / sesión | | `pendiente` |
 
-- **Estados:** `pendiente`, `en progreso`, `promovido_a_task`, `descartado`.
+- **Estados:** `pendiente`, `en progreso`, `promovido_a_task`, `descartado`, `hecho`.
+
+---
+
+## ✅ Completados (Historial)
+
+| ID | Fecha Resolución | Origen / Contexto | Descripción / Solución | Agente |
+|---|---|---|---|---|
+| p1 | YYYY-MM-DD | `$close` / sesión | | [Modelo vX] |

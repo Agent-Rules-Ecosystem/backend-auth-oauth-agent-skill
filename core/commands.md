@@ -30,12 +30,12 @@ Pasos que el agente debe ejecutar:
 2. Verificar si existe `overview/` — si no, crear desde `templates/`.
 3. Cargar `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md`, `overview/trackers/progress.md`.
 4. Detectar si el `Agente:` en `session.md` difiere del modelo actual → si difiere, activar protocolo `## Handoff de Agente` de `brain.md`.
-5. Alias divergentes: si alias y canónico coexisten con contenido distinto → flag `[consolidar alias]` en `work.md`.
+5. Alias divergentes: si alias y canónico coexisten con contenido distinto (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`) → flag `[consolidar alias]` en `work.md`.
 6. `session.md` legado: si faltan `Agente:`, `## Reanudar` o `## Cambios` → reportar `session legado` (sin migrar automático).
 7. Auditoría de líneas: listar archivos de código fuente >250L; sugerir IDs `deuda` en `overview/work/deuda_tecnica.md` (prioridades **Alta**, **Media**, **Baja**).
-8. Auditar `overview/learning.md`: promover mejoras ya implementadas al Histórico.
-9. **Revisión de Trabajo (`work_review.md`)**: Ejecutar el protocolo de revisión de `overview/work/` (`tasks.md`, `pendientes.md`, `deuda_tecnica.md`, `work.md`) según `templates/work_review.md`.
-10. Reportar en 5 líneas máximo: agente anterior, nodo activo, tareas pendientes, estado validación, flags (alias/session/líneas), síntesis de `work_review` y próximo paso.
+8. Auditar `overview/learning.md` (Evaluación de 3 Vías): promover aplicadas al Histórico, eliminar/marcar rechazadas y flag `[conflicto learning]` si hay choque con el Core.
+9. **Revisión de Trabajo (`work_review.md`)**: Ejecutar el protocolo de revisión de `overview/work/` respetando prioridades (1º `tasks.md`, 2º `pendientes.md`, 3º `deuda_tecnica.md`) según `templates/work_review.md`.
+10. Reportar en 5 líneas máximo: agente anterior, nodo activo, tareas pendientes, estado validación, flags (alias/session/líneas/conflicto), síntesis de `work_review` y próximo paso.
 
 ---
 
@@ -59,7 +59,7 @@ Próximo paso  : [## Reanudar de session.md]
 Protocolo de cierre de sesión. El agente debe:
 1. Ejecutar `flutter analyze` si aplica. Suite de tests: ausente (sin carpeta `test/`) → `no aplica`; presente y no corrida/fallida → `no verificado` + motivo. Si la tarea implica build o release → consultar `.agents/knowledge/release_checklist.md`.
 2. Registrar ítems o tareas secundarias identificadas durante la ejecución en `overview/work/pendientes.md`.
-3. Actualizar índice maestro `overview/work.md` con cambios de la sesión.
+3. Actualizar índice maestro `overview/work.md` con cambios de la sesión y trasladar ítems/deudas resueltas a `## ✅ Completados (Historial)` conservando su ID.
 4. Actualizar `overview/session.md`:
    - Registrar `Agente:` con firma propia.
    - Completar `## Cambios` con lo trabajado.
@@ -117,8 +117,9 @@ El agente debe:
 2. Generar el próximo ID correlativo (ej. `w4` si el último es `w3`).
 3. Registrar en `overview/work/tasks.md`: indicar la tarea a iniciar, clasificarla (`problema`, `mejora`, `refactor`) y redactar hipótesis/soluciones planteadas.
 4. Agregar fila en el índice maestro `overview/work.md` con el ID, tipo y estado `pendiente`.
-5. Si es un bug: agregar entrada vacía en `## 📋 Historial de Intentos` en `work.md` con header `### [ID] [descripción]`.
-6. Confirmar: `Registrado como [ID] en work.md y configurado en overview/work/tasks.md.`
+5. **Mapeo incremental de arquitectura**: Actualizar `overview/architecture.md` **únicamente con los nodos** (pantallas, clases, providers, repos) que la tarea concretamente va a tocar (sin sweep completo del repo).
+6. Si es un bug: agregar entrada vacía en `## 📋 Historial de Intentos` en `work.md` con header `### [ID] [descripción]`.
+7. Confirmar: `Registrado como [ID] en work.md, mapeado en architecture.md y configurado en overview/work/tasks.md.`
 
 Ejemplo de uso:
 ```

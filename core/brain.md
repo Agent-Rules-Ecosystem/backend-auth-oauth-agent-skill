@@ -34,12 +34,13 @@ Las siguientes señales disparan el protocolo completo de bootstrap (discovery +
 Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents", "bootstrap .agents"):
 
 1. **Leer el core completo**: `path_map.md`, `communication.md`, `brain.md`, `commands.md` y `AGENTS.md`.
-2. **Auditar `overview/learning.md`**: por cada bullet en `## 📌 Propuestas de mejora`, aplicar el **Filtro Agnóstico (Escudo Anti-parches)**:
-   - ❌ **RECHAZAR**: Snippets de código fuente, propiedades/widgets específicos, soluciones de sintaxis concreta o comandos CLI rígidos.
-   - ✅ **PERMITIR**: Únicamente procesos de diagnóstico agnósticos, reglas de gobernanza de agentes o patrones de arquitectura neutrales. Si una propuesta contiene código o comandos específicos, descartarla o abstraerla a proceso de diagnóstico antes de evaluar su promoción.
-3. **Promover las cumplidas**: mover cada propuesta verificada como implementada → al final de `## 📜 Histórico de mejoras aplicadas` con formato `- [YYYY-MM-DD] Descripción breve`.
-4. **Conservar las pendientes**: dejar sin modificar los bullets que aún no están implementados en el core.
-5. **Continuar con el flujo normal del core**: Inicio → Discovery → verificar `overview/` → trabajar.
+2. **Auditar y comparar `overview/learning.md` contra `.agents/core/` (Evaluación de 3 Vías)**:
+   Por cada bullet en `## 📌 Propuestas de mejora`, evaluar si la propuesta fue:
+   - ✅ **Aplicada**: Ya está implementada o integrada en la gobernanza/core actual → promover al final de `## 📜 Histórico de mejoras aplicadas` con formato `- [YYYY-MM-DD] Descripción breve` y eliminar el bullet activo.
+   - ❌ **Rechazada**: Viola el **Filtro Agnóstico (Escudo Anti-parches)** (contiene código fuente específico, propiedades UI o comandos CLI rígidos) o es inviable → eliminar o registrar motivo de rechazo.
+   - ⚠️ **En Conflicto**: Entra en conflicto directo con una regla existente en `.agents/core/` → marcar con el flag `[conflicto learning: regla X]` en `work.md` para aclaración del usuario.
+   - ⏳ **Pendiente**: Cumple el filtro agnóstico y no está aplicada ni en conflicto → conservar en `## 📌 Propuestas de mejora`.
+3. **Continuar con el flujo normal del core**: Inicio → Discovery → verificar `overview/` → trabajar.
 
 ## Inicio
 
@@ -47,6 +48,11 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 - Leer core y `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md`, `overview/trackers/progress.md`.
 - Si falta `overview/` o archivos base, crearlos desde `.agents/templates/`.
 - Si falta `overview/architecture.md`, crearlo desde plantilla antes de trabajar.
+- **Orden de prioridad de atención en `$work`**: 
+  1. `overview/work/tasks.md` (tarea activa en ejecución)
+  2. `overview/work/pendientes.md` (ítems de seguimiento identificados)
+  3. `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad **Alta**, **Media** y **Baja**)
+- **Histórico de completados**: Tareas, pendientes y deudas resueltas se agregan/mueven a `## ✅ Completados (Historial)` conservando su ID correspondiente (`[w1]`, `[d2]`, `[p1]`).
 - **Alias divergentes en bootstrap**: si coexisten pares alias/canónico (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`, `memory_session.md`/`session.md`) con contenido distinto → flag obligatorio `[consolidar alias]` en `work.md`; **nunca** asumir cuál manda sin verificar diff previo.
 - **`session.md` legado vs plantilla**: si faltan campos o encabezados requeridos (`Agente:`, `## Reanudar`, `## Cambios`) → reportar en boot `session legado` sin forzar migración automática implícita.
 - **Auditoría de líneas (discovery/`$boot`)**: listar archivos de código fuente >250L; sugerir IDs `deuda` en `overview/work/deuda_tecnica.md` ordenadas por prioridad (**Alta**, **Media**, **Baja**); no crear filas fijas sin confirmación implícita de la tarea.
@@ -56,7 +62,7 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 - **Historial de Intentos firmado por Agente**: En `work.md` y trackers de bugs/tareas, mantener un registro incremental de intentos de resolución. Nunca borrar intentos previos. Reglas:
   - **Mismo día:** actualizar la entrada existente de esa fecha (sin duplicar).
   - **Diferente día:** crear nueva entrada con fecha + **firma del Agente** (modelo/versión) que ejecutó la prueba.
-  - **Al resolver:** marcar estado como `hecho` indicando el Agente que logró la solución. Incluir nota concisa con (1) causa raíz exacta y (2) solución applied (código/configuración).
+  - **Al resolver:** marcar estado como `hecho` indicando el Agente que logró la solución. Incluir nota concisa con (1) causa raíz exacta y (2) solución aplicada (código/configuración).
   - **Propósito:** ante problema similar futuro, consultar historial para reusar la solución exitosa o recomendar al agente que la resolvió.
 
 ### Discovery dinámico por framework
@@ -114,17 +120,18 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 
 > Propósito: evitar trabajo duplicado, detectar inconsistencias de estado y aprovechar el historial firmado para elegir el enfoque más efectivo.
 
-## Arquitectura viva y Modularización
+## Arquitectura viva y Mapeo Incremental por Tarea
 
-- **Arquitectura viva en `overview/architecture.md`**: El proyecto debe mantener un mapa operativo actualizado por sesión; cada cambio en pantallas, cards, modelos, estado o persistencia debe reflejarse en `overview/architecture.md` para conservar continuidad y visibilidad de conexiones entre flujo y datos.
+- **Arquitectura viva en `overview/architecture.md`**: El proyecto debe mantener un mapa operativo actualizado por sesión.
+- **Mapeo incremental de arquitectura por `$work`**: Al registrar o iniciar una tarea, el agente debe actualizar `overview/architecture.md` **únicamente con los nodos (pantallas, clases, providers, repos)** que esa tarea concretamente va a tocar o modificar. Queda prohibido hacer un sweep exhaustivo de todo el repositorio para rehacer el mapa entero. Objetivo: mantener el mapa vivo a costo de tokens mínimo.
 - **Modularización de Trackers por Subcarpetas / Archivo Individual**: Para colecciones masivas de datos, los trackers de contenido deben modularizarse en directorios (`overview/trackers/content/<categoria>/<item>.md`) y el contenido verificado mapearse directamente a la estructura final en app.
 
 ## Cierre
 
 - Ejecutar `flutter analyze` cuando aplique.
-- **Suite de tests (sin carpeta `test/`)**: si no existe carpeta/suite de pruebas (`test/`) → estado `no aplica` (no es deuda). Si la suite existe pero no fue ejecutada o falló → `no verificado` + motivo. Nunca marcar un fallo de CLI por suite ausente como deuda falsa.
+- **Suite de tests (sin carpeta `test/`)**: Si el proyecto **no posee** carpeta o suite de pruebas (`test/`) → el estado de validación de pruebas es `no aplica` (no representa una deuda técnica). Si la suite de tests **sí existe** pero no fue ejecutada o falló → estado `no verificado` + motivo explícito. Evitar marcar un fallo de ejecución del CLI por suite ausente como una deuda falsa.
 - **Pendientes de sesión**: registrar cualquier ítem o tarea secundaria identificada durante la ejecución en `overview/work/pendientes.md` para su seguimiento en sesiones posteriores.
-- Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente.
+- Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente. Trasladar ítems resueltos a `## ✅ Completados (Historial)` con su ID.
 - Si validación falla o no puede ejecutarse (habiendo suite): marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
 - Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).

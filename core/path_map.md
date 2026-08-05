@@ -39,13 +39,17 @@
 
 > `overview/context/` es para archivos de dominio no mapeables al framework ni al estado de sesión: contexto general, changelogs de contenido, datos de referencia de la app. Se leen al reanudar como checkpoints.
 
-> `overview/workflows/` es para guías de dominio por flujo en términos agnósticos (ej. `Origen → Procesamiento → Destino`). Separado de `architecture.md` (mapa técnico) y de `context/` (datos/referencia).
+> `overview/workflows/` es la **ubicación canónica** para registrar guías de dominio por flujo en términos agnósticos (ej. materia prima: `Entrada → Inventario → Producción`). Se mantiene estrictamente separada de `overview/architecture.md` (mapa de arquitectura técnica de código) y de `overview/context/` (datos de negocio / archivos de referencia general).
 
-### Backlog canónico único
+### Backlog canónico único y Prioridad de atención
 
 - `overview/work.md` = **único** índice y tabla maestra de IDs (`tarea` / `bug` / `deuda`).
-- Detalle de ejecución: `overview/work/tasks.md` (tarea activa), `overview/work/pendientes.md` (seguimiento al cerrar) y `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad Alta, Media y Baja).
-- No escribir backlogs paralelos o aislados fuera del esquema canónico.
+- **Orden de prioridad de atención en `$work`**:
+  1. `overview/work/tasks.md` (tarea activa en ejecución)
+  2. `overview/work/pendientes.md` (ítems de seguimiento identificados)
+  3. `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad **Alta**, **Media** y **Baja**)
+- **Histórico de completados**: Todas las tareas, pendientes y deudas resueltas deben trasladarse a `## ✅ Completados (Historial)` conservando su ID correspondiente (`[w1]`, `[d2]`, `[p1]`).
+- No duplicar detalles en el alias heredado `tasks.md` ni escribir backlogs paralelos fuera del esquema canónico.
 
 ## Alias heredados
 
@@ -55,4 +59,4 @@
 | `overview/tasks.md` (raíz) | `overview/work.md` / `overview/work/tasks.md` |
 | `memory_session.md` | `overview/session.md` |
 
-> Si coexisten alias y canónico con contenido distinto → flag `[consolidar alias]` obligatorio (`brain.md`). Nunca asumir cuál manda sin verificar.
+> Si coexisten alias y canónico con contenido distinto (ej. `tasks.md`/`work.md` o `tracker.md`/`trackers/architecture.md`) → flag `[consolidar alias]` obligatorio (`brain.md`). Nunca asumir cuál manda sin verificar diff previo.

@@ -19,3 +19,11 @@
 | ID | Ubicación / Componente | Descripción de la Deuda | Impacto |
 |---|---|---|---|
 | d3 | | | |
+
+---
+
+## ✅ Completados (Historial)
+
+| ID | Ubicación / Componente | Descripción de la Deuda | Solución Aplicada | Agente | Fecha |
+|---|---|---|---|---|---|
+| d1 | | | | [Modelo vX] | YYYY-MM-DD |
