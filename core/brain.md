@@ -44,18 +44,19 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 ## Inicio
 
 - Ejecutar `git submodule status`.
-- Leer core y `overview/session.md`, `overview/work.md`, `overview/trackers/progress.md`.
+- Leer core y `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md`, `overview/trackers/progress.md`.
 - Si falta `overview/` o archivos base, crearlos desde `.agents/templates/`.
 - Si falta `overview/architecture.md`, crearlo desde plantilla antes de trabajar.
-- **Alias divergentes**: si coexisten pares alias/canónico (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`, `memory_session.md`/`session.md`) con contenido distinto → flag `[consolidar alias]` en `work.md`; no asumir cuál manda sin diff.
-- **`session.md` legado**: si falta `Agente:`, `## Reanudar` o `## Cambios` → reportar en boot `session legado`; no migrar automático.
-- **Auditoría de líneas (discovery/`$boot`)**: listar archivos de código fuente >250L; sugerir IDs `deuda` en `work.md` (no crear filas sin confirmación implícita de la tarea).
-- **Registro preventivo previo a ejecución (Pre-execution Work Logging)**: Al recibir un requerimiento o bug, actualizar `overview/work.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar cualquier acción. En caso de reporte de bug, incluir una hipótesis breve de causa raíz (5-7 palabras). Derivar automáticamente 1 o 2 mejoras/tareas asociadas a los pendientes para garantizar tolerancia a desconexión, corte de luz o agotamiento de tokens.
-- **Backlog canónico**: solo `work.md` concentra IDs; no escribir backlog paralelo en alias.
+- **Alias divergentes en bootstrap**: si coexisten pares alias/canónico (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`, `memory_session.md`/`session.md`) con contenido distinto → flag obligatorio `[consolidar alias]` en `work.md`; **nunca** asumir cuál manda sin verificar diff previo.
+- **`session.md` legado vs plantilla**: si faltan campos o encabezados requeridos (`Agente:`, `## Reanudar`, `## Cambios`) → reportar en boot `session legado` sin forzar migración automática implícita.
+- **Auditoría de líneas (discovery/`$boot`)**: listar archivos de código fuente >250L; sugerir IDs `deuda` en `overview/work/deuda_tecnica.md` ordenadas por prioridad (**Alta**, **Media**, **Baja**); no crear filas fijas sin confirmación implícita de la tarea.
+- **Registro preventivo previo a ejecución (Pre-execution Work Logging)**: Al recibir un requerimiento o bug, actualizar `overview/work.md`, `overview/work/tasks.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar cualquier acción. En `tasks.md`, describir la tarea a iniciar, clasificarla (`problema`, `mejora`, `refactor`) y proponer hipótesis/soluciones o rutas de trabajo. En caso de reporte de bug, incluir una hipótesis breve de causa raíz (5-7 palabras). Derivar automáticamente 1 o 2 mejoras/tareas asociadas a los pendientes para garantizar tolerancia a desconexión, corte de luz o agotamiento de tokens.
+- **Backlog canónico único**: `overview/work.md` es el único índice maestro de IDs; los detalles de tareas activas van en `overview/work/tasks.md`, los pendientes identificados al cerrar en `overview/work/pendientes.md` y la deuda técnica en `overview/work/deuda_tecnica.md`. No duplicar en alias `tasks.md`.
+- **Protocolo de Revisión de Trabajo (`work_review.md`)**: Al finalizar `$boot`, ejecutar obligatoriamente el protocolo definido en `templates/work_review.md` para auditar `overview/work/` y reportar un síntesis de 4 líneas.
 - **Historial de Intentos firmado por Agente**: En `work.md` y trackers de bugs/tareas, mantener un registro incremental de intentos de resolución. Nunca borrar intentos previos. Reglas:
   - **Mismo día:** actualizar la entrada existente de esa fecha (sin duplicar).
   - **Diferente día:** crear nueva entrada con fecha + **firma del Agente** (modelo/versión) que ejecutó la prueba.
-  - **Al resolver:** marcar estado como `hecho` indicando el Agente que logró la solución. Incluir nota concisa con (1) causa raíz exacta y (2) solución aplicada (código/configuración).
+  - **Al resolver:** marcar estado como `hecho` indicando el Agente que logró la solución. Incluir nota concisa con (1) causa raíz exacta y (2) solución applied (código/configuración).
   - **Propósito:** ante problema similar futuro, consultar historial para reusar la solución exitosa o recomendar al agente que la resolvió.
 
 ### Discovery dinámico por framework
@@ -65,7 +66,7 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 3. Inspección recursiva automática de toda carpeta no estándar: identificar de forma estricta las carpetas estándar del framework detectado y procesar automáticamente cualquier otro directorio raíz (incluyendo subcarpetas anidadas) mediante inspección semántica de contenido para su relocalización a `overview/` sin omitir ninguna por ser no-estándar.
 4. Relocalización activa de metadatos: no ignorar archivos sin categoría; extraer y relocalizar documentación, notas de negocio o trackers hallados en subdirectorios no estándar a `overview/context/` o al tracker canónico correspondiente para cero archivos huérfanos.
 5. **Lectura activa de contexto (`overview/context/`)**: El protocolo de inicio debe inspeccionar y leer automáticamente los archivos de contexto guardados en `overview/context/` (changelogs, tablas de datos, reglas de negocio) para recuperar el estado histórico y checkpoints del proyecto al reanudar.
-6. **Auto-inicialización de trackers de contenido externo (`content_*.md`)**: Al detectar manejo o extracción de datos de dominio (ej. catálogo/Gembook), el bootstrap debe crear e inicializar automáticamente los trackers `content_gemini.md`, `content_claude.md`, `content_gpt.md` y `content_verified.md` desde `.agents/templates/trackers/`.
+6. **Auto-inicialización de trackers de contenido externo (`content_*.md`)**: Al detectar manejo o extracción de datos de dominio (ej. catálogo de datos / colecciones masivas), el bootstrap debe crear e inicializar automáticamente los trackers `content_gemini.md`, `content_claude.md`, `content_gpt.md` y `content_verified.md` desde `.agents/templates/trackers/`.
 7. **Exploración progresiva del sistema**: La cartografía del proyecto debe desarrollarse de forma incremental y contextual, evitando una revisión exhaustiva de todo el código en una sola pasada. Las zonas nuevas del mapa se incorporan conforme el trabajo las requiere, preservando una visión clara del alcance real de la tarea sin sobreexplorar el repositorio. **Guardrail de tokens en discovery inicial:** leer máx 5 archivos de código fuente en el primer sweep; expandir solo cuando la tarea lo requiera explícitamente.
 
 ### Reconocimiento de acrónimos estándar
@@ -82,12 +83,12 @@ Al encontrar cualquier carpeta o archivo no mapeado al framework, inspeccionar s
 | `- [ ]`, `- [x]`, progreso, estado | `overview/trackers/` |
 | Resúmenes ejecutivos, arquitectura | `overview/architecture.md` |
 | Contexto de negocio, datos de dominio | `overview/context/` |
-| Flujos de dominio (pasos entidad→…→…) | `overview/workflows/` |
+| Flujos de dominio (pasos agnósticos: origen→procesamiento→destino) | `overview/workflows/` |
 | Mejoras al core, candidatos | `overview/learning.md` |
 
 ### Normalización de rutas
 
-- Todas las rutas de `overview/` siempre en minúsculas: `overview/`, `overview/trackers/`, `overview/history/`, `overview/context/`, `overview/workflows/`.
+- Todas las rutas de `overview/` siempre en minúsculas: `overview/`, `overview/trackers/`, `overview/history/`, `overview/context/`, `overview/workflows/`, `overview/work/`.
 - Si existe colisión (`Overview/` vs `overview/`): mapear alias, usar ruta lowercase como canónica.
 - En Linux/Mac (case-sensitive): verificar con `ls` antes de asumir que no existe.
 
@@ -116,23 +117,25 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 ## Arquitectura viva y Modularización
 
 - **Arquitectura viva en `overview/architecture.md`**: El proyecto debe mantener un mapa operativo actualizado por sesión; cada cambio en pantallas, cards, modelos, estado o persistencia debe reflejarse en `overview/architecture.md` para conservar continuidad y visibilidad de conexiones entre flujo y datos.
-- **Modularización de Trackers por Subcarpetas / Archivo Individual**: Para colecciones masivas de datos (ej. Gembook con 50+ gemas en orgánicas/, preciosas/, semipreciosas/, sintéticas/), los trackers de contenido deben modularizarse en directorios (`overview/trackers/content/<categoria>/<item>.md`) y el contenido verificado mapearse directamente a la estructura final en app (ej. `lib/pages/gembook/data/`).
+- **Modularización de Trackers por Subcarpetas / Archivo Individual**: Para colecciones masivas de datos, los trackers de contenido deben modularizarse en directorios (`overview/trackers/content/<categoria>/<item>.md`) y el contenido verificado mapearse directamente a la estructura final en app.
 
 ## Cierre
 
 - Ejecutar `flutter analyze` cuando aplique.
-- Suite de tests: si no existe carpeta/suite de tests → estado `no aplica` (no es deuda). Si existe y no se ejecutó o falló la corrida → `no verificado` + motivo. Nunca marcar fallo de CLI por suite ausente como deuda.
-- Actualizar tracker correspondiente, sesión y trabajo. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente de `work.md`.
+- **Suite de tests (sin carpeta `test/`)**: si no existe carpeta/suite de pruebas (`test/`) → estado `no aplica` (no es deuda). Si la suite existe pero no fue ejecutada o falló → `no verificado` + motivo. Nunca marcar un fallo de CLI por suite ausente como deuda falsa.
+- **Pendientes de sesión**: registrar cualquier ítem o tarea secundaria identificada durante la ejecución en `overview/work/pendientes.md` para su seguimiento en sesiones posteriores.
+- Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente.
 - Si validación falla o no puede ejecutarse (habiendo suite): marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
 - Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
 - Una vez promovida al repo oficial: mover al Histórico como una línea. Eliminar el bullet activo.
 
-## Calidad
+## Calidad y Resolución de Dependencias
 
 - Cambios quirúrgicos. No mejorar código ajeno sin necesidad.
 - Flutter: Firebase y manejo de estado dependen de cada proyecto.
 - Archivos Dart idealmente <250 líneas; máximo 300.
+- **Resolución de dependencias vs SDK del entorno**: Si `flutter pub get` / `pub` falla por restricciones de versión entre el SDK del package y el SDK instalado en el entorno, preferir el **upgrade del SDK global del entorno** cuando el proyecto requiere versiones modernas. El downgrade de packages debe considerarse únicamente como un parche temporal.
 
 ## Contenido externo
 

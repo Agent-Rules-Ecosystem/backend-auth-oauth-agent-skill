@@ -26,3 +26,7 @@ description: Rules for Flutter modularization, Clean Architecture, file line lim
 ## 4. Manejo de Estado (Riverpod)
 - Separar la vista (Widget) del controlador (Notifier/StateNotifier).
 - Prevenir lógica de negocio o llamados Firebase dentro de los métodos `build()` de los widgets.
+
+## 5. Validación y Release
+- Antes de cualquier build (APK/AAB/IPA), consultar `.agents/knowledge/release_checklist.md`.
+- Nunca presentar un build como validado sin haber ejecutado `flutter analyze` limpio.

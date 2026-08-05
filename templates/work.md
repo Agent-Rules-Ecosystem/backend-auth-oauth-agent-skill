@@ -1,10 +1,10 @@
-# Trabajo: pendientes, bugs y deuda
+# Trabajo: índice maestro y backlog canónico
 
-> **Backlog canónico único.** Toda tarea/bug/deuda vive en esta tabla. No duplicar en `tasks.md` (alias). Detalle de deuda: fila aquí o nota en `trackers/architecture.md`.
+> **Backlog canónico único.** Concentra los IDs de `tarea`, `bug` y `deuda`. El detalle se distribuye en `overview/work/tasks.md` (tarea activa), `overview/work/pendientes.md` (seguimiento) y `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad Alta/Media/Baja).
 
-| ID | Tipo | Estado | Resumen | Evidencia |
+| ID | Tipo | Estado | Resumen | Archivo de Detalle |
 |---|---|---|---|---|
-| w1 | tarea | pendiente | | |
+| w1 | tarea | pendiente | | `work/tasks.md` |
 
 Tipos: `tarea`, `bug`, `deuda`. Estados: `pendiente`, `en progreso`, `bloqueado`, `hecho`, `no verificado`.
 
