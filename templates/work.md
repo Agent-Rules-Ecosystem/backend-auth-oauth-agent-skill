@@ -1,5 +1,7 @@
 # Trabajo: pendientes, bugs y deuda
 
+> **Backlog canónico único.** Toda tarea/bug/deuda vive en esta tabla. No duplicar en `tasks.md` (alias). Detalle de deuda: fila aquí o nota en `trackers/architecture.md`.
+
 | ID | Tipo | Estado | Resumen | Evidencia |
 |---|---|---|---|---|
 | w1 | tarea | pendiente | | |

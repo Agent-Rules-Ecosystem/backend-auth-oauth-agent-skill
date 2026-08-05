@@ -17,5 +17,6 @@ Archivos de dominio no mapeables al framework ni al estado de sesión.
 | Progreso de features | `overview/trackers/progress.md` |
 | Sesiones archivadas | `overview/history/` |
 | Mejoras al core | `overview/learning.md` |
+| Flujos de dominio | `overview/workflows/` |
 
 <!-- Agregar archivos de contexto como secciones o sub-archivos según el dominio -->

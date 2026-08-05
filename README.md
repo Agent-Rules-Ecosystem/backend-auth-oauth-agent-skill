@@ -9,7 +9,7 @@ Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido
 3. **Memoria versionada** — sesión con firma de Agente, historial de intentos incremental y aprendizajes candidatos.
 4. **Handoff de Agente** — protocolo para cambiar de modelo sin perder estado ni repetir trabajo fallido.
 5. **Historial de intentos firmado** — cada bug registra quién intentó qué y quién lo resolvió, con causa raíz y solución.
-6. **$-Comandos** — atajos explícitos (`$boot`, `$status`, `$close`, `$learn`, `$work`) para disparar protocolos cuando el bootstrap automático falla o es incompleto.
+6. **$-Comandos** — atajos explícitos (`$boot`, `$status`, `$close`, `$learn`, `$learnagnostico`, `$work`) para disparar protocolos cuando el bootstrap automático falla o es incompleto.
 7. **Validación explícita** — `verificado`, `no verificado` o `conflicto`; nunca presentar como validado sin evidencia.
 8. **Adaptadores mínimos** — Codex, Claude, Gemini/Antigravity y Cursor; sin duplicar reglas.
 
@@ -19,7 +19,7 @@ Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido
 git submodule add https://github.com/xolotl-hub/flutter-agent-rules.git .agents
 ```
 
-Instalar adaptador de `.agents/adapters/` que reconozca el agente. Crear `overview/` desde `.agents/templates/`. Ambos forman parte del repositorio Flutter: `.agents/` conserva reglas globales y `overview/` conserva el estado local del proyecto.
+Instalar adaptador de `.agents/adapters/` que reconozca el agente. En el **proyecto Flutter**, crear `overview/` desde `.agents/templates/` (`$boot`). El submódulo `.agents/` no versiona `overview/`: solo plantillas y reglas.
 
 ## Uso rápido
 
@@ -29,6 +29,7 @@ Instalar adaptador de `.agents/adapters/` que reconozca el agente. Crear `overvi
 | `$status` | Estado actual en 5 líneas |
 | `$close` | Cierre de sesión con validación |
 | `$learn [texto]` | Registrar aprendizaje candidato |
+| `$learnagnostico [texto]` | Abstraer y registrar aprendizaje genérico |
 | `$work [descripción]` | Registrar tarea o bug nuevo |
 | `ejecuta .agents` | Bootstrap completo + auditoría de learning |
 

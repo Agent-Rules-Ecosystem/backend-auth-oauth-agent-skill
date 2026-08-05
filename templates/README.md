@@ -1,10 +1,12 @@
 # Inicializar `overview/`
 
-Copiar contenido de este directorio a `overview/` en raíz del proyecto. Conservar archivos en Git.
+Copiar contenido de este directorio a `overview/` en raíz del proyecto Flutter (`$boot` / ejecuta `.agents`). Conservar archivos en Git del **proyecto**, no del submódulo `.agents`.
 
 ```text
 overview/
+├── context/
 ├── history/
+├── workflows/
 ├── architecture.md
 ├── learning.md
 ├── session.md

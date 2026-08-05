@@ -10,4 +10,3 @@ Lista directa de mejoras identificadas para promover al repositorio global `.age
 
 ## 📜 Histórico de mejoras aplicadas
 
-

@@ -47,7 +47,11 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
 - Leer core y `overview/session.md`, `overview/work.md`, `overview/trackers/progress.md`.
 - Si falta `overview/` o archivos base, crearlos desde `.agents/templates/`.
 - Si falta `overview/architecture.md`, crearlo desde plantilla antes de trabajar.
+- **Alias divergentes**: si coexisten pares alias/canónico (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`, `memory_session.md`/`session.md`) con contenido distinto → flag `[consolidar alias]` en `work.md`; no asumir cuál manda sin diff.
+- **`session.md` legado**: si falta `Agente:`, `## Reanudar` o `## Cambios` → reportar en boot `session legado`; no migrar automático.
+- **Auditoría de líneas (discovery/`$boot`)**: listar archivos de código fuente >250L; sugerir IDs `deuda` en `work.md` (no crear filas sin confirmación implícita de la tarea).
 - **Registro preventivo previo a ejecución (Pre-execution Work Logging)**: Al recibir un requerimiento o bug, actualizar `overview/work.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar cualquier acción. En caso de reporte de bug, incluir una hipótesis breve de causa raíz (5-7 palabras). Derivar automáticamente 1 o 2 mejoras/tareas asociadas a los pendientes para garantizar tolerancia a desconexión, corte de luz o agotamiento de tokens.
+- **Backlog canónico**: solo `work.md` concentra IDs; no escribir backlog paralelo en alias.
 - **Historial de Intentos firmado por Agente**: En `work.md` y trackers de bugs/tareas, mantener un registro incremental de intentos de resolución. Nunca borrar intentos previos. Reglas:
   - **Mismo día:** actualizar la entrada existente de esa fecha (sin duplicar).
   - **Diferente día:** crear nueva entrada con fecha + **firma del Agente** (modelo/versión) que ejecutó la prueba.
@@ -78,11 +82,12 @@ Al encontrar cualquier carpeta o archivo no mapeado al framework, inspeccionar s
 | `- [ ]`, `- [x]`, progreso, estado | `overview/trackers/` |
 | Resúmenes ejecutivos, arquitectura | `overview/architecture.md` |
 | Contexto de negocio, datos de dominio | `overview/context/` |
+| Flujos de dominio (pasos entidad→…→…) | `overview/workflows/` |
 | Mejoras al core, candidatos | `overview/learning.md` |
 
 ### Normalización de rutas
 
-- Todas las rutas de `overview/` siempre en minúsculas: `overview/`, `overview/trackers/`, `overview/history/`, `overview/context/`.
+- Todas las rutas de `overview/` siempre en minúsculas: `overview/`, `overview/trackers/`, `overview/history/`, `overview/context/`, `overview/workflows/`.
 - Si existe colisión (`Overview/` vs `overview/`): mapear alias, usar ruta lowercase como canónica.
 - En Linux/Mac (case-sensitive): verificar con `ls` antes de asumir que no existe.
 
@@ -115,9 +120,10 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 
 ## Cierre
 
-- Ejecutar `flutter analyze` y `flutter test` cuando apliquen.
+- Ejecutar `flutter analyze` cuando aplique.
+- Suite de tests: si no existe carpeta/suite de tests → estado `no aplica` (no es deuda). Si existe y no se ejecutó o falló la corrida → `no verificado` + motivo. Nunca marcar fallo de CLI por suite ausente como deuda.
 - Actualizar tracker correspondiente, sesión y trabajo. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente de `work.md`.
-- Si validación falla o no puede ejecutarse: marcar `no verificado`, indicar motivo; nunca presentar como validado.
+- Si validación falla o no puede ejecutarse (habiendo suite): marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
 - Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
 - Una vez promovida al repo oficial: mover al Histórico como una línea. Eliminar el bullet activo.

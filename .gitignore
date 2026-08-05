@@ -141,7 +141,3 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
-
-# Agent local session state (overview/ is generated in project roots, not in core submodule repo)
-overview/
-
