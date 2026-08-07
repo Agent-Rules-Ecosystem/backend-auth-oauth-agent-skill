@@ -48,7 +48,7 @@
   1. `overview/work/tasks.md` (tarea activa en ejecución)
   2. `overview/work/pendientes.md` (ítems de seguimiento identificados)
   3. `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad **Alta**, **Media** y **Baja**)
-- **Histórico de completados**: Todas las tareas, pendientes y deudas resueltas deben trasladarse a `## ✅ Completados (Historial)` conservando su ID correspondiente (`[w1]`, `[d2]`, `[p1]`).
+- **Histórico de completados**: Al resolver cualquier ítem de trabajo (tarea, bug o deuda), retirarlo inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID (`[w1]`, `[d2]`, `[p1]`).
 - No duplicar detalles en el alias heredado `tasks.md` ni escribir backlogs paralelos fuera del esquema canónico.
 
 ## Alias heredados

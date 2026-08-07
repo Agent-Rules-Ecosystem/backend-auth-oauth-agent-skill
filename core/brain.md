@@ -52,7 +52,7 @@ Cuando el usuario escribe **"ejecuta .agents"** (o variante como "corre .agents"
   1. `overview/work/tasks.md` (tarea activa en ejecución)
   2. `overview/work/pendientes.md` (ítems de seguimiento identificados)
   3. `overview/work/deuda_tecnica.md` (deuda ordenada por prioridad **Alta**, **Media** y **Baja**)
-- **Histórico de completados**: Tareas, pendientes y deudas resueltas se agregan/mueven a `## ✅ Completados (Historial)` conservando su ID correspondiente (`[w1]`, `[d2]`, `[p1]`).
+- **Histórico de completados**: Al resolver cualquier ítem (tarea, bug o deuda), retirarlo inmediatamente de las tablas activas y trasladarlo a la sección `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID (`[w1]`, `[d2]`, `[p1]`).
 - **Alias divergentes en bootstrap**: si coexisten pares alias/canónico (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`, `memory_session.md`/`session.md`) con contenido distinto → flag obligatorio `[consolidar alias]` en `work.md`; **nunca** asumir cuál manda sin verificar diff previo.
 - **`session.md` legado vs plantilla**: si faltan campos o encabezados requeridos (`Agente:`, `## Reanudar`, `## Cambios`) → reportar en boot `session legado` sin forzar migración automática implícita.
 - **Auditoría de líneas (discovery/`$boot`)**: listar archivos de código fuente >250L; sugerir IDs `deuda` en `overview/work/deuda_tecnica.md` ordenadas por prioridad (**Alta**, **Media**, **Baja**); no crear filas fijas sin confirmación implícita de la tarea.
@@ -131,7 +131,7 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 - Ejecutar `flutter analyze` cuando aplique.
 - **Suite de tests (sin carpeta `test/`)**: Si el proyecto **no posee** carpeta o suite de pruebas (`test/`) → el estado de validación de pruebas es `no aplica` (no representa una deuda técnica). Si la suite de tests **sí existe** pero no fue ejecutada o falló → estado `no verificado` + motivo explícito. Evitar marcar un fallo de ejecución del CLI por suite ausente como una deuda falsa.
 - **Pendientes de sesión**: registrar cualquier ítem o tarea secundaria identificada durante la ejecución en `overview/work/pendientes.md` para su seguimiento en sesiones posteriores.
-- Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente. Trasladar ítems resueltos a `## ✅ Completados (Historial)` con su ID.
+- Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente. Retirar cualquier ítem resuelto inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID.
 - Si validación falla o no puede ejecutarse (habiendo suite): marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
 - Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).

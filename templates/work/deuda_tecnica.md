@@ -24,6 +24,8 @@
 
 ## ✅ Completados (Historial)
 
+<!-- Mover aquí deuda técnica completada conservando su ID -->
+
 | ID | Ubicación / Componente | Descripción de la Deuda | Solución Aplicada | Agente | Fecha |
 |---|---|---|---|---|---|
 | d1 | | | | [Modelo vX] | YYYY-MM-DD |

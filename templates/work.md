@@ -12,6 +12,8 @@ Tipos: `tarea`, `bug`, `deuda`. Estados: `pendiente`, `en progreso`, `bloqueado`
 
 ## ✅ Completados (Historial)
 
+<!-- Mover aquí tareas, bugs o deudas completadas conservando su ID -->
+
 | ID | Tipo | Resuelto por (Agente) | Causa Raíz / Resumen Solución | Fecha |
 |---|---|---|---|---|
 | [ID] | tarea/bug/deuda | [Modelo vX] | [Resumen breve de la solución aplicada] | YYYY-MM-DD |
@@ -34,6 +36,6 @@ Tipos: `tarea`, `bug`, `deuda`. Estados: `pendiente`, `en progreso`, `bloqueado`
 Reglas:
 - Mismo día → actualizar la fila existente de esa fecha (no duplicar).
 - Diferente día → nueva fila con fecha + firma del Agente.
-- Al resolver → marcar estado en la tabla principal como `hecho` + trasladar a completados.
+- Al resolver → retirar inmediatamente de la tabla activa y trasladar a `## ✅ Completados (Historial)` conservando su ID.
 - Nunca borrar intentos previos.
 -->

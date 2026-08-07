@@ -59,7 +59,7 @@ Próximo paso  : [## Reanudar de session.md]
 Protocolo de cierre de sesión. El agente debe:
 1. Ejecutar `flutter analyze` si aplica. Suite de tests: ausente (sin carpeta `test/`) → `no aplica`; presente y no corrida/fallida → `no verificado` + motivo. Si la tarea implica build o release → consultar `.agents/knowledge/release_checklist.md`.
 2. Registrar ítems o tareas secundarias identificadas durante la ejecución en `overview/work/pendientes.md`.
-3. Actualizar índice maestro `overview/work.md` con cambios de la sesión y trasladar ítems/deudas resueltas a `## ✅ Completados (Historial)` conservando su ID.
+3. Actualizar índice maestro `overview/work.md` con cambios de la sesión, retirar cualquier ítem/deuda resuelta inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID.
 4. Actualizar `overview/session.md`:
    - Registrar `Agente:` con firma propia.
    - Completar `## Cambios` con lo trabajado.

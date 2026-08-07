@@ -14,6 +14,8 @@
 
 ## ✅ Completados (Historial)
 
+<!-- Mover aquí pendientes completados conservando su ID -->
+
 | ID | Fecha Resolución | Origen / Contexto | Descripción / Solución | Agente |
 |---|---|---|---|---|
 | p1 | YYYY-MM-DD | `$close` / sesión | | [Modelo vX] |
