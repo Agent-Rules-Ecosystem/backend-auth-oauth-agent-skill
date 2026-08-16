@@ -16,6 +16,9 @@
 | Plantillas `overview/` | `.agents/templates/` | `$boot` / Inicio |
 | Skill Clean Arch & Limits | `.agents/skills/flutter-clean-arch/SKILL.md` | Refactors / UI |
 | Skill Diagrams Mermaid | `.agents/skills/mermaid-diagrams/SKILL.md` | Diagramación |
+| Skills específicas del proyecto | `.skills/<skill_name>/SKILL.md` (submódulo del repo huésped) | Bajo demanda — vinculadas via `.agents/skills.json` |
+
+> **Gobernanza de Skills por Proyecto**: Skills específicas de un proyecto deben gestionarse como submódulo independiente en `.skills/<skill_name>/` (raíz del repo huésped, **fuera** de `.agents/`). Vincular en `.agents/skills.json` con `{ "path": "../.skills/<skill_name>" }`. Esto evita el error de Git que ocurre al intentar registrar un submódulo anidado dentro de otro submódulo (`.agents/`).
 
 ## Estado local: raíz del proyecto
 
