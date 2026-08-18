@@ -12,14 +12,14 @@
 
 ## Qué hacer al trabajar
 
-- Actualizar `overview/work.md` y `overview/work/tasks.md` **antes** de editar código.
+- Actualizar automáticamente todos los archivos de control en `overview/` (`work.md`, `tasks.md`, `session.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md`, `architecture.md`) **antes** de editar código.
 - Cambios quirúrgicos: no mejorar código ajeno sin necesidad.
-- Referencias rápidas: `$boot` `$status` `$close` `$learn` `$work` (ver `.agents/core/commands.md`).
+- Referencias rápidas: `$boot` `$status` `$close` `$learn` `$work` `$archi` (ver `.agents/core/commands.md`).
 
 ## Qué hacer al cerrar
 
-1. Actualizar `overview/session.md` con firma: `[Modelo] — YYYY-MM-DD`.
-2. Registrar pendientes en `overview/work/pendientes.md`.
+1. Sincronizar automáticamente todos los archivos de control en `overview/` (`session.md`, `work.md`, `tasks.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md`, `architecture.md`).
+2. Registrar firma en `session.md`: `[Modelo] — YYYY-MM-DD`.
 3. Indicar validación: `verificado` | `no verificado` | `no aplica`.
 
 > Estado del proyecto → `overview/`. Reglas globales → `.agents/`. No duplicar.

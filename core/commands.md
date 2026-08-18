@@ -12,10 +12,11 @@ Cuando el usuario escribe un comando con prefijo `$`, el agente lo reconoce como
 |---|---|
 | `$boot` | Bootstrap completo del proyecto |
 | `$status` | Mostrar estado actual en resumen |
-| `$close` | Protocolo de cierre de sesión |
+| `$work [descripción]` | Registrar nueva tarea/bug |
+| `$archi` | Actualizar arquitectura viva (diagramas Mermaid y conexiones) |
 | `$learn [texto]` | Registrar aprendizaje candidato |
 | `$learnagnostico [texto]` | Abstraer a términos genéricos y registrar |
-| `$work [descripción]` | Registrar nueva tarea/bug |
+| `$close` | Protocolo de cierre de sesión con sincronización automática de rastreadores |
 
 ---
 
@@ -28,7 +29,7 @@ Dispara el bootstrap completo. Equivalente a **"ejecuta .agents"** pero más cor
 Pasos que el agente debe ejecutar:
 1. Leer `core/path_map.md`, `core/communication.md`, `core/brain.md`, `core/commands.md`.
 2. Verificar si existe `overview/` — si no, crear desde `templates/`.
-3. Cargar `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md`, `overview/trackers/progress.md`.
+3. Cargar archivos de control de `overview/`: `session.md`, `work.md`, `work/tasks.md`, `work/deuda_tecnica.md`, `work/pendientes.md`, `work_review.md`, `architecture.md` y `trackers/progress.md`.
 4. Detectar si el `Agente:` en `session.md` difiere del modelo actual → si difiere, activar protocolo `## Handoff de Agente` de `brain.md`.
 5. Alias divergentes: si alias y canónico coexisten con contenido distinto (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`) → flag `[consolidar alias]` en `work.md`.
 6. `session.md` legado: si faltan `Agente:`, `## Reanudar` o `## Cambios` → reportar `session legado` (sin migrar automático).
@@ -54,20 +55,38 @@ Próximo paso  : [## Reanudar de session.md]
 
 ---
 
-### `$close`
+### `$work [descripción]`
 
-Protocolo de cierre de sesión. El agente debe:
-1. Ejecutar `flutter analyze` si aplica. Suite de tests: ausente (sin carpeta `test/`) → `no aplica`; presente y no corrida/fallida → `no verificado` + motivo. Si la tarea implica build o release → consultar `.agents/knowledge/release_checklist.md`.
-2. Registrar ítems o tareas secundarias identificadas durante la ejecución en `overview/work/pendientes.md`.
-3. Actualizar índice maestro `overview/work.md` con cambios de la sesión, retirar cualquier ítem/deuda resuelta inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID.
-4. Actualizar `overview/session.md`:
-   - Registrar `Agente:` con firma propia.
-   - Completar `## Cambios` con lo trabajado.
-   - Completar `## Reanudar` con el siguiente nodo y contexto crítico.
-5. Actualizar `overview/trackers/progress.md`.
-6. Si hay sesiones antiguas irrelevantes → archivar en `overview/history/`.
-7. Si hay mejora candidata identificada → agregar a `overview/learning.md`.
-8. Reportar: `Sesión cerrada. Próximo: [nodo]. Estado: [verificado/no verificado/no aplica].`
+Registrar una nueva tarea o bug en el sistema de trabajo modular `overview/work/`.
+
+El agente debe:
+1. Determinar tipo: `tarea` (mejora/feature), `bug` (comportamiento inesperado) o `deuda`.
+2. Generar el próximo ID correlativo (ej. `w4` si el último es `w3`).
+3. Registrar en `overview/work/tasks.md`: indicar la tarea a iniciar, clasificarla (`problema`, `mejora`, `refactor`) y redactar hipótesis/soluciones planteadas.
+4. Agregar fila en el índice maestro `overview/work.md` con el ID, tipo y estado `pendiente`.
+5. **Sincronización Automática y Mapeo Incremental**: Actualizar automáticamente de forma simultánea todos los archivos de control en `overview/` (`pendientes.md`, `deuda_tecnica.md`, `tasks.md`, `session.md`, `work_review.md`, `work.md` y `architecture.md`), mapeando únicamente los nodos (pantallas, clases, providers, repos) que la tarea concretamente va a tocar (sin sweep completo del repo) y sin requerir recordatorio manual del usuario.
+6. Si es un bug: agregar entrada vacía en `## 📋 Historial de Intentos` en `work.md` con header `### [ID] [descripción]`.
+7. Confirmar: `Registrado como [ID] en work.md, mapeado en architecture.md y sincronizado automáticamente en overview/ (tasks, session, pendientes, deuda).`
+
+Ejemplo de uso:
+```
+$work bug: el drawer no cierra al navegar con GoRouter en iOS
+```
+
+---
+
+### `$archi`
+
+Protocolo de actualización de Arquitectura Viva. El agente debe:
+1. Escanear las modificaciones estructurales, nuevos widgets/servicios/providers/repositorios y refactorizaciones realizadas durante la sesión.
+2. Leer `overview/architecture.md`.
+3. Actualizar `overview/architecture.md` incorporando o actualizando diagramas Mermaid (`graph LR` / `graph TD`) y actualizando las tablas de mapeo de capas/conexiones clave entre componentes.
+4. Confirmar: `Arquitectura viva actualizada en overview/architecture.md con nuevos diagramas Mermaid y mapas de conexión.`
+
+Ejemplo de uso:
+```
+$archi
+```
 
 ---
 
@@ -108,23 +127,23 @@ $learnagnostico En MóduloX el flujo Entrada→Inventario→Salida debe document
 
 ---
 
-### `$work [descripción]`
+### `$close`
 
-Registrar una nueva tarea o bug en el sistema de trabajo modular `overview/work/`.
+Protocolo de cierre de sesión. Es **regla obligatoria** la **sincronización automática y simultánea** de todos los archivos de control en `overview/` (`pendientes.md`, `deuda_tecnica.md`, `tasks.md`, `session.md`, `work_review.md`, `work.md` y `architecture.md`) sin requerir recordatorio manual por parte del usuario.
 
 El agente debe:
-1. Determinar tipo: `tarea` (mejora/feature), `bug` (comportamiento inesperado) o `deuda`.
-2. Generar el próximo ID correlativo (ej. `w4` si el último es `w3`).
-3. Registrar en `overview/work/tasks.md`: indicar la tarea a iniciar, clasificarla (`problema`, `mejora`, `refactor`) y redactar hipótesis/soluciones planteadas.
-4. Agregar fila en el índice maestro `overview/work.md` con el ID, tipo y estado `pendiente`.
-5. **Mapeo incremental de arquitectura**: Actualizar `overview/architecture.md` **únicamente con los nodos** (pantallas, clases, providers, repos) que la tarea concretamente va a tocar (sin sweep completo del repo).
-6. Si es un bug: agregar entrada vacía en `## 📋 Historial de Intentos` en `work.md` con header `### [ID] [descripción]`.
-7. Confirmar: `Registrado como [ID] en work.md, mapeado en architecture.md y configurado en overview/work/tasks.md.`
-
-Ejemplo de uso:
-```
-$work bug: el drawer no cierra al navegar con GoRouter en iOS
-```
+1. Ejecutar `flutter analyze` si aplica. Suite de tests: ausente (sin carpeta `test/`) → `no aplica`; presente y no corrida/fallida → `no verificado` + motivo. Si la tarea implica build o release → consultar `.agents/knowledge/release_checklist.md`.
+2. Registrar ítems o tareas secundarias identificadas durante la ejecución en `overview/work/pendientes.md`.
+3. Actualizar índice maestro `overview/work.md` con cambios de la sesión, retirar cualquier ítem/deuda resuelta inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID.
+4. Sincronizar simultáneamente todos los archivos de control en `overview/` (`session.md`, `work.md`, `tasks.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md` y `architecture.md`).
+5. Actualizar `overview/session.md`:
+   - Registrar `Agente:` con firma propia.
+   - Completar `## Cambios` con lo trabajado.
+   - Completar `## Reanudar` con el siguiente nodo y contexto crítico.
+6. Actualizar `overview/trackers/progress.md`.
+7. Si hay sesiones antiguas irrelevantes → archivar en `overview/history/`.
+8. Si hay mejora candidata identificada → agregar a `overview/learning.md`.
+9. Reportar: `Sesión cerrada con sincronización automática de rastreadores. Próximo: [nodo]. Estado: [verificado/no verificado/no aplica].`
 
 ---
 
@@ -134,4 +153,4 @@ $work bug: el drawer no cierra al navegar con GoRouter en iOS
 - Si el `$`-comando va acompañado de texto adicional (ej. `$learn texto aquí`), el texto después del comando es el argumento.
 - Si el argumento falta donde es requerido, el agente debe pedirlo en una sola línea.
 - Los comandos son **case-insensitive**: `$Boot`, `$BOOT` y `$boot` son equivalentes.
-- Si el agente no reconoce el comando, responder: `Comando desconocido. Disponibles: $boot $status $close $learn $learnagnostico $work`.
+- Si el agente no reconoce el comando, responder: `Comando desconocido. Disponibles: $boot $status $work $archi $learn $learnagnostico $close`.

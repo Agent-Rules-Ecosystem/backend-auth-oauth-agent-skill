@@ -22,13 +22,13 @@ Antes de responder o editar, leer y cumplir:
 - Primer mensaje de conversación cuando el proyecto tiene `.agents/` pero no `overview/`.
 - Cualquier mensaje que comience con `$` → reconocer como $-comando según `core/commands.md` y ejecutar el protocolo correspondiente.
 
-Para cualquier tarea que inspeccione o cambie código del proyecto, antes de analizar o responder cargar `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md` y `overview/trackers/progress.md`. Actualizar `overview/work.md`, `overview/work/tasks.md` y `overview/session.md` INMEDIATAMENTE antes de ejecutar (Registro preventivo previo a ejecución); en reporte de bug incluir hipótesis breve (5-7 palabras). Si falta `overview/` o uno de esos archivos, crearlo desde `.agents/templates/`. Si falta `overview/architecture.md`, crearlo desde su plantilla. Al finalizar `$boot`, ejecutar el protocolo `overview/work_review.md`.
+Para cualquier tarea que inspeccione o cambie código del proyecto, antes de analizar o responder cargar `overview/session.md`, `overview/work.md`, `overview/work/tasks.md`, `overview/work/deuda_tecnica.md`, `overview/work/pendientes.md` y `overview/trackers/progress.md`. Es obligatorio sincronizar automáticamente de forma simultánea todos los archivos de control en `overview/` (`work.md`, `tasks.md`, `session.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md` y `architecture.md`) durante `$work` y `$close` (Registro preventivo previo a ejecución y cierre), sin requerir recordatorios manuales del usuario. En reporte de bug incluir hipótesis breve (5-7 palabras). Ante cambios estructurales o refactors de arquitectura viva, ejecutar o responder al comando `$archi`. Si falta `overview/` o uno de esos archivos, crearlo desde `.agents/templates/`. Si falta `overview/architecture.md`, crearlo desde su plantilla. Al finalizar `$boot`, ejecutar el protocolo `overview/work_review.md`.
 
 Las reglas globales viven solo en `.agents/`. Si agente no descubre `.agents/AGENTS.md`, instalar adaptador mínimo desde `.agents/adapters/`; nunca duplicar reglas. Al editar este repositorio oficial directamente, usar rutas locales equivalentes (`core/`, `templates/`, etc.).
 
 ## Estado local versionado
 
-Crear `overview/` desde `.agents/templates/` al iniciar proyecto. Al inicio y cierre, cargar/actualizar:
+Crear `overview/` desde `.agents/templates/` al iniciar proyecto. Al inicio y cierre, cargar/actualizar automáticamente de forma simultánea todos los rastreadores:
 
 - `overview/session.md`
 - `overview/work.md` (índice maestro)
@@ -38,7 +38,7 @@ Crear `overview/` desde `.agents/templates/` al iniciar proyecto. Al inicio y ci
 - `overview/work_review.md` (protocolo de auditoría `$boot`)
 - `overview/workflows/` (guías por flujo con terminología 100% agnóstica)
 - `overview/trackers/progress.md`
-- `overview/trackers/architecture.md` cuando aplique
+- `overview/trackers/architecture.md` cuando aplique (actualizable vía `$archi`)
 - `overview/context/` para archivos de contexto general no mapeables
 - `overview/learning.md` cuando surja mejora candidata
 

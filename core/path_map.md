@@ -31,7 +31,7 @@
 | Deuda Técnica | `overview/work/deuda_tecnica.md` | Inicio/bajo demanda |
 | Protocolo Revisión Work | `overview/work_review.md` | Fin de `$boot` |
 | Aprendizajes | `overview/learning.md` | Al cerrar |
-| Arquitectura real | `overview/architecture.md` | Al iniciar |
+| Arquitectura real | `overview/architecture.md` | Inicio / `$archi` / `$close` |
 | Tracker Arquitectura | `overview/trackers/architecture.md` | Bajo demanda |
 | Tracker Progreso | `overview/trackers/progress.md` | Inicio/cierre |
 | Contenido | `overview/trackers/content_*.md` | Si aplica |

@@ -1,38 +1,95 @@
-# Flutter Agent Rules
+# 🚀 Flutter Agent Rules
 
-Repositorio centralizado: cerebro operativo para proyectos Flutter. Reduce ruido/tokens, conserva continuidad y exige calidad verificable. Se instala como submódulo `.agents/`; reglas globales son independientes del proyecto.
+**Cerebro operativo centralizado para agentes de IA en proyectos Flutter**. Diseñado para maximizar el ahorro de tokens, mantener la memoria entre sesiones y modelos, garantizar la trazabilidad de código y mantener una arquitectura viva sincronizada.
 
-## Qué aporta
+Se instala como submódulo de Git en `.agents/`. Las reglas globales son 100% agnósticas e independientes del código fuente del proyecto.
 
-1. **Comunicación concisa** — modo cavernícola + ahorro de tokens sin bajar calidad técnica.
-2. **Trackers separados** — arquitectura, trabajo, progreso y contenido por agente.
-3. **Memoria versionada** — sesión con firma de Agente, historial de intentos incremental y aprendizajes candidatos.
-4. **Handoff de Agente** — protocolo para cambiar de modelo sin perder estado ni repetir trabajo fallido.
-5. **Historial de intentos firmado** — cada bug registra quién intentó qué y quién lo resolvió, con causa raíz y solución.
-6. **$-Comandos** — atajos explícitos (`$boot`, `$status`, `$close`, `$learn`, `$learnagnostico`, `$work`) para disparar protocolos cuando el bootstrap automático falla o es incompleto.
-7. **Validación explícita** — `verificado`, `no verificado` o `conflicto`; nunca presentar como validado sin evidencia.
-8. **Adaptadores mínimos** — Codex, Claude, Gemini/Antigravity y Cursor; sin duplicar reglas.
+---
 
-## Instalación
+## 📌 Pilares de Gobernanza
+
+1. **⚡ Modo Cavernícola & Token Saver**: Respuestas ultra-concisas, eliminación de prosa innecesaria y referencias de líneas en lugar de duplicación de código en chat.
+2. **🔄 Sincronización Automática de Rastreadores**: Actualización simultánea e integral de los 7 archivos de control en `overview/` (`session.md`, `work.md`, `tasks.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md` y `architecture.md`) durante `$work` y `$close`, sin requerir recordatorio manual del usuario.
+3. **🗺️ Arquitectura Viva (`$archi`)**: Mantenimiento incremental del mapa técnico de arquitectura en `overview/architecture.md` con diagramas Mermaid (`graph LR` / `graph TD`) y tablas de conexión entre capas.
+4. **👥 Handoff y Memoria Versionada por Agente**: Firma canónica por proveedor/modelo (`[Proveedor] [Modelo] — YYYY-MM-DD`). Historial incremental de solución de bugs y traspaso transparente al cambiar de agente.
+5. **🛡️ Escudo Anti-parches (Filtro Agnóstico)**: Las mejoras al core prohiben código específico o comandos CLI rígidos; únicamente procesos de diagnóstico y gobernanza agnósticos.
+
+---
+
+## ⚡ $-Comandos (Orden de Flujo de Trabajo)
+
+Los $-comandos son atajos explícitos que ejecutan protocolos inmediatos en el proyecto:
+
+| Comando | Tipo | Descripción y Flujo |
+|---|---|---|
+| `$boot` | **Inicio** | Bootstrap completo, lectura de reglas, verificación de `overview/` y handoff de agente. |
+| `$status` | **Inspección** | Muestra el estado activo en 5 líneas (Agente, Nodo, Validación, Tareas abiertas y Próximo paso). |
+| `$work [descripción]` | **Ejecución** | Registra tarea/bug en `work.md`, abre `tasks.md` y sincroniza automáticamente los 7 rastreadores. |
+| `$archi` | **Arquitectura** | Escanea cambios estructurales de la sesión y actualiza diagramas Mermaid y capas en `architecture.md`. |
+| `$learn [texto]` | **Aprendizaje** | Valida con Filtro Agnóstico y registra propuesta de mejora candidata en `overview/learning.md`. |
+| `$learnagnostico [texto]` | **Abstracción** | Descontextualiza entidades de negocio a términos agnósticos y las registra en `overview/learning.md`. |
+| `$close` | **Cierre** | Cierre de sesión, validación de calidad/tests, registro de pendientes y sincronización final de rastreadores. |
+| `ejecuta .agents` | **Auditoría** | Dispara el bootstrap completo más la Evaluación de 3 Vías de `overview/learning.md`. |
+
+---
+
+## 📂 Estructura Canónica de `overview/`
+
+El estado del proyecto vive en la raíz del repositorio huésped dentro del directorio `overview/` (creado desde `.agents/templates/`):
+
+```
+overview/
+├── session.md             # Sesión activa, firma de Agente y puntos de reanudación
+├── work.md                # Índice maestro de tareas, bugs y backlog canónico único
+├── architecture.md        # Mapa de Arquitectura Viva (Diagramas Mermaid y capas)
+├── work_review.md         # Reporte de revisión mutable generado al final de $boot
+├── work/
+│   ├── tasks.md           # Tarea activa en ejecución, soluciones y rutas
+│   ├── pendientes.md      # Seguimiento de tareas identificadas al cerrar ($close)
+│   └── deuda_tecnica.md   # Deuda clasificada por prioridad (Alta, Media, Baja)
+├── trackers/
+│   ├── progress.md        # Progreso general por nodos de avance
+│   └── architecture.md    # Registro incremental de nodos de arquitectura
+├── context/               # Datos de dominio, changelogs y metadatos no mapeables
+├── workflows/             # Guías de dominio agnósticas (ej. Origen → Procesamiento → Destino)
+├── learning.md            # Propuestas de mejora candidatas al core
+└── history/               # Histórico de sesiones anteriores archivadas
+```
+
+---
+
+## 📦 Instalación y Configuración
+
+### 1. Agregar submódulo en el proyecto Flutter
 
 ```bash
 git submodule add https://github.com/xolotl-hub/flutter-agent-rules.git .agents
 ```
 
-Instalar adaptador de `.agents/adapters/` que reconozca el agente. En el **proyecto Flutter**, crear `overview/` desde `.agents/templates/` (`$boot`). El submódulo `.agents/` no versiona `overview/`: solo plantillas y reglas.
+### 2. Copiar adaptador según la herramienta de IA
 
-## Uso rápido
+Copiar el adaptador correspondiente desde `.agents/adapters/` a la raíz de su entorno:
 
-| Escribir | Resultado |
-|---|---|
-| `$boot` | Bootstrap completo + handoff si cambió el agente |
-| `$status` | Estado actual en 5 líneas |
-| `$close` | Cierre de sesión con validación |
-| `$learn [texto]` | Registrar aprendizaje candidato |
-| `$learnagnostico [texto]` | Abstraer y registrar aprendizaje genérico |
-| `$work [descripción]` | Registrar tarea o bug nuevo |
-| `ejecuta .agents` | Bootstrap completo + auditoría de learning |
+- **OpenAI / Codex**: `adapters/AGENTS.md` → `AGENTS.md`
+- **Claude**: `adapters/CLAUDE.md` → `CLAUDE.md`
+- **Gemini / Antigravity**: `adapters/GEMINI.md` → `GEMINI.md`
+- **Cursor**: `adapters/cursor-rule.mdc` → `.cursor/rules/agents.mdc`
 
-## Contenido contrastado
+### 3. Iniciar el proyecto
 
-Cada agente registra datos en su tracker. Un dato es `verificado` cuando al menos dos coinciden, las fuentes son compatibles y no hay conflicto abierto. Registro final: dato, valor, fuentes, fecha y estado.
+Escribir en la primera interacción del agente:
+
+```text
+$boot
+```
+
+El agente creará la estructura `overview/` desde `.agents/templates/` e iniciará el ciclo de trabajo.
+
+---
+
+## 🔍 Contenido Contrastado y Verificación
+
+Cuando múltiples agentes participan en una tarea, los datos de dominio se verifican entre sí:
+- **`verificado`**: 2+ agentes coinciden, las fuentes son compatibles y no existen conflictos abiertos.
+- **`conflicto`**: Discrepancias abiertas entre fuentes o agentes; requiere resolución explícita.
+- **`no aplica`**: Proyectos o módulos sin suite de pruebas automatizadas.
