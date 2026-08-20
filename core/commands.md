@@ -27,6 +27,7 @@ Cuando el usuario escribe un comando con prefijo `$`, el agente lo reconoce como
 Dispara el bootstrap completo. Equivalente a **"ejecuta .agents"** pero más corto.
 
 Pasos que el agente debe ejecutar:
+0. Ejecutar `git submodule status` para verificar integridad de submódulos.
 1. Leer `core/path_map.md`, `core/communication.md`, `core/brain.md`, `core/commands.md`.
 2. Verificar si existe `overview/` — si no, crear desde `templates/`.
 3. Cargar archivos de control de `overview/`: `session.md`, `work.md`, `work/tasks.md`, `work/deuda_tecnica.md`, `work/pendientes.md`, `work_review.md`, `architecture.md` y `trackers/progress.md`.
@@ -34,7 +35,7 @@ Pasos que el agente debe ejecutar:
 5. Alias divergentes: si alias y canónico coexisten con contenido distinto (`tasks.md`/`work.md`, `tracker.md`/`trackers/architecture.md`) → flag `[consolidar alias]` en `work.md`.
 6. `session.md` legado: si faltan `Agente:`, `## Reanudar` o `## Cambios` → reportar `session legado` (sin migrar automático).
 7. Auditoría de líneas: listar archivos de código fuente >250L; sugerir IDs `deuda` en `overview/work/deuda_tecnica.md` (prioridades **Alta**, **Media**, **Baja**).
-8. Auditar `overview/learning.md` (Evaluación de 3 Vías): promover aplicadas al Histórico, eliminar/marcar rechazadas y flag `[conflicto learning]` si hay choque con el Core.
+8. Auditar y comparar `overview/learning.md` contra `.agents/core/` (Evaluación de 3 Vías): por cada bullet en `## 📌 Propuestas de mejora` evaluar si está ✅ aplicada (promover al Histórico), ❌ rechazada (viola Filtro Agnóstico → eliminar), ⚠️ en conflicto con regla existente (flag `[conflicto learning: regla X]` en `work.md`) o ⏳ pendiente (conservar).
 9. **Revisión de Trabajo (`work_review.md`)**: Ejecutar el protocolo de revisión de `overview/work/` respetando prioridades (1º `tasks.md`, 2º `pendientes.md`, 3º `deuda_tecnica.md`) según `templates/work_review.md`.
 10. Reportar en 5 líneas máximo: agente anterior, nodo activo, tareas pendientes, estado validación, flags (alias/session/líneas/conflicto), síntesis de `work_review` y próximo paso.
 
@@ -77,11 +78,13 @@ $work bug: el drawer no cierra al navegar con GoRouter en iOS
 
 ### `$archi`
 
-Protocolo de actualización de Arquitectura Viva. El agente debe:
-1. Escanear las modificaciones estructurales, nuevos widgets/servicios/providers/repositorios y refactorizaciones realizadas durante la sesión.
+Protocolo dedicado exclusivamente a garantizar la **exhaustividad total** de la arquitectura viva. Su única tarea es auditar y registrar hasta el último rincón del proyecto (pantallas, widgets, servicios, providers, repositorios y modelos) en `overview/architecture.md`.
+
+El agente debe:
+1. Escanear exhaustivamente la estructura completa del proyecto y las modificaciones/conexiones no mapeadas previamente.
 2. Leer `overview/architecture.md`.
-3. Actualizar `overview/architecture.md` incorporando o actualizando **diagramas sintéticos Mermaid** (`graph LR` / `graph TD`) y las tablas de mapeo de capas/conexiones clave. **Omitir bloques de texto redundantes**; toda la estructura debe expresarse vía diagramas para lectura rápida y rastreo de conexiones.
-4. Confirmar: `Arquitectura viva actualizada en overview/architecture.md con diagramas Mermaid sintéticos.`
+3. Actualizar `overview/architecture.md` incorporando o completando los **diagramas sintéticos Mermaid** (`graph LR` / `graph TD`) y las tablas de mapa de conexiones clave hasta lograr cobertura del 100%. **Omitir bloques de texto redundantes**; toda la estructura y sus conexiones deben expresarse de forma sintética mediante diagramas.
+4. Confirmar: `Arquitectura viva registrada exhaustivamente en overview/architecture.md con cobertura total y diagramas Mermaid.`
 
 Ejemplo de uso:
 ```

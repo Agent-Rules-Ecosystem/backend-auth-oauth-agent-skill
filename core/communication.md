@@ -54,7 +54,7 @@ Ejemplos válidos:
 - `Gemini 2.5 Flash — 2026-08-04`
 - `Gemini 2.5 Pro — 2026-08-04`
 - `GPT-4o — 2026-08-04`
-- `Antigravity (Gemini 2.5 Pro) — 2026-08-04`
+- `Gemini 2.5 Pro (via Antigravity IDE) — 2026-08-04`
 
 Reglas:
 - Nunca abreviar el nombre del modelo en registros históricos (sí en conversación).

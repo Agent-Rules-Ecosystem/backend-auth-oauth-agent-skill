@@ -1,6 +1,8 @@
-# Arquitectura Flutter
+# Arquitectura Flutter — Referencia de Capas
 
-Plantilla para copiar a `overview/architecture.md` si proyecto necesita describir arquitectura real.
+> **Referencia de capas sugeridas** para describir la arquitectura de un proyecto Flutter.
+> La plantilla real para crear `overview/architecture.md` está en `templates/architecture.md`.
+> Cargar bajo demanda cuando se necesite orientación sobre organización de capas (Clean Arch, etc.).
 
 ```mermaid
 graph LR
