@@ -10,9 +10,10 @@ Se instala como submódulo de Git en `.agents/`. Las reglas globales son 100% ag
 
 1. **⚡ Modo Cavernícola & Token Saver**: Respuestas ultra-concisas, eliminación de prosa innecesaria y referencias de líneas en lugar de duplicación de código en chat.
 2. **🔄 Sincronización Automática de Rastreadores**: Actualización simultánea e integral de los 7 archivos de control en `overview/` (`session.md`, `work.md`, `tasks.md`, `pendientes.md`, `deuda_tecnica.md`, `work_review.md` y `architecture.md`) durante `$work` y `$close`, sin requerir recordatorio manual del usuario.
-3. **🗺️ Arquitectura Viva (`$archi`)**: Mantenimiento incremental del mapa técnico de arquitectura en `overview/architecture.md` con diagramas Mermaid (`graph LR` / `graph TD`) y tablas de conexión entre capas.
+3. **🗺️ Arquitectura Viva (`$archi`)**: Mantenimiento incremental del mapa técnico en `overview/architecture.md` mediante **diagramas sintéticos Mermaid** (`graph LR` / `graph TD`) sin texto redundante, para lectura rápida y rastreo de conexiones.
 4. **👥 Handoff y Memoria Versionada por Agente**: Firma canónica por proveedor/modelo (`[Proveedor] [Modelo] — YYYY-MM-DD`). Historial incremental de solución de bugs y traspaso transparente al cambiar de agente.
 5. **🛡️ Escudo Anti-parches (Filtro Agnóstico)**: Las mejoras al core prohiben código específico o comandos CLI rígidos; únicamente procesos de diagnóstico y gobernanza agnósticos.
+6. **🔒 Inviolabilidad de `.agents/`**: Los archivos de gobernanza en `.agents/` nunca se modifican desde el proyecto local. Todo aprendizaje candidato se plasma en `overview/learning.md` bajo `## 📌 Propuestas de mejora` y se promueve al repositorio oficial con aprobación del propietario.
 
 ---
 
@@ -25,7 +26,7 @@ Los $-comandos son atajos explícitos que ejecutan protocolos inmediatos en el p
 | `$boot` | **Inicio** | Bootstrap completo, lectura de reglas, verificación de `overview/` y handoff de agente. |
 | `$status` | **Inspección** | Muestra el estado activo en 5 líneas (Agente, Nodo, Validación, Tareas abiertas y Próximo paso). |
 | `$work [descripción]` | **Ejecución** | Registra tarea/bug en `work.md`, abre `tasks.md` y sincroniza automáticamente los 7 rastreadores. |
-| `$archi` | **Arquitectura** | Escanea cambios estructurales de la sesión y actualiza diagramas Mermaid y capas en `architecture.md`. |
+| `$archi` | **Arquitectura** | Escanea cambios estructurales de la sesión y actualiza **diagramas Mermaid sintéticos** (sin texto redundante) y capas en `architecture.md`. |
 | `$learn [texto]` | **Aprendizaje** | Valida con Filtro Agnóstico y registra propuesta de mejora candidata en `overview/learning.md`. |
 | `$learnagnostico [texto]` | **Abstracción** | Descontextualiza entidades de negocio a términos agnósticos y las registra en `overview/learning.md`. |
 | `$close` | **Cierre** | Cierre de sesión, validación de calidad/tests, registro de pendientes y sincronización final de rastreadores. |

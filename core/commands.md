@@ -80,8 +80,8 @@ $work bug: el drawer no cierra al navegar con GoRouter en iOS
 Protocolo de actualización de Arquitectura Viva. El agente debe:
 1. Escanear las modificaciones estructurales, nuevos widgets/servicios/providers/repositorios y refactorizaciones realizadas durante la sesión.
 2. Leer `overview/architecture.md`.
-3. Actualizar `overview/architecture.md` incorporando o actualizando diagramas Mermaid (`graph LR` / `graph TD`) y actualizando las tablas de mapeo de capas/conexiones clave entre componentes.
-4. Confirmar: `Arquitectura viva actualizada en overview/architecture.md con nuevos diagramas Mermaid y mapas de conexión.`
+3. Actualizar `overview/architecture.md` incorporando o actualizando **diagramas sintéticos Mermaid** (`graph LR` / `graph TD`) y las tablas de mapeo de capas/conexiones clave. **Omitir bloques de texto redundantes**; toda la estructura debe expresarse vía diagramas para lectura rápida y rastreo de conexiones.
+4. Confirmar: `Arquitectura viva actualizada en overview/architecture.md con diagramas Mermaid sintéticos.`
 
 Ejemplo de uso:
 ```

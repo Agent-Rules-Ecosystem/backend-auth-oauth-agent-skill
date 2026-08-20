@@ -122,9 +122,9 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 
 ## Arquitectura viva y Mapeo Incremental por Tarea
 
-- **Arquitectura viva en `overview/architecture.md`**: El proyecto debe mantener un mapa operativo actualizado por sesión.
+- **Arquitectura viva en `overview/architecture.md`**: El proyecto debe mantener un mapa operativo actualizado por sesión. La arquitectura viva debe plasmarse mediante diagramas sintéticos Mermaid (`graph LR` / `graph TD`) omitiendo bloques de texto redundantes para permitir rápida lectura y fácil rastreo de conexiones del agente.
 - **Mapeo incremental de arquitectura por `$work`**: Al registrar o iniciar una tarea, el agente debe actualizar `overview/architecture.md` **únicamente con los nodos (pantallas, clases, providers, repos)** que esa tarea concretamente va a tocar o modificar. Queda prohibido hacer un sweep exhaustivo de todo el repositorio para rehacer el mapa entero. Objetivo: mantener el mapa vivo a costo de tokens mínimo.
-- **Comando y Trigger `$archi` (Actualización de Arquitectura Viva)**: Ante cambios estructurales, creación de nuevos widgets, servicios, providers o repositorios, o refactorizaciones realizadas en la sesión, el agente puede ejecutar o recibir `$archi` para escanear las modificaciones y actualizar automáticamente `overview/architecture.md` incorporando nuevos diagramas Mermaid (`graph LR` / `graph TD`) y mapas de conexiones clave.
+- **Comando y Trigger `$archi` (Actualización de Arquitectura Viva)**: Ante cambios estructurales, creación de nuevos widgets, servicios, providers o repositorios, o refactorizaciones realizadas en la sesión, el agente puede ejecutar o responder al comando `$archi` para escanear las modificaciones y actualizar automáticamente `overview/architecture.md` incorporando diagramas sintéticos Mermaid (`graph LR` / `graph TD`) sin texto redundante y mapas de conexiones clave.
 - **Modularización de Trackers por Subcarpetas / Archivo Individual**: Para colecciones masivas de datos, los trackers de contenido deben modularizarse en directorios (`overview/trackers/content/<categoria>/<item>.md`) y el contenido verificado mapearse directamente a la estructura final en app.
 
 ## Cierre
@@ -136,7 +136,7 @@ Cuando el Agente que retoma una sesión es distinto al que la inició (diferente
 - Actualizar tracker correspondiente, sesión e índice maestro `overview/work.md`. Si se resolvió un bug/tarea con historial de intentos, registrar firma del Agente resolvedor, causa raíz y solución en la entrada correspondiente. Retirar cualquier ítem resuelto inmediatamente de las tablas activas y trasladarlo a `## ✅ Completados (Historial)` en `work.md`, `deuda_tecnica.md` y `pendientes.md` conservando su ID.
 - Si validación falla o no puede ejecutarse (habiendo suite): marcar `no verificado`, indicar motivo; nunca presentar como validado.
 - Archivar sesiones antiguas en `overview/history/` cuando dejen de ser útiles al contexto activo.
-- Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
+- **Inviolabilidad estricta de `.agents/`**: Nunca modificar directamente archivos de gobernanza o comandos en `.agents/` desde un proyecto local. Todos los aprendizajes candidatos deben plasmarse únicamente en `overview/learning.md` bajo `## 📌 Propuestas de mejora`. Si hay mejora candidata al core: aplicar **Filtro Agnóstico** (prohibido sugerir código, propiedades de UI o comandos específicos; solo procesos de diagnóstico o gobernanza). Si pasa el filtro, agregar bullet a `overview/learning.md` (lista limpia, sin fechas/estados).
 - Una vez promovida al repo oficial: mover al Histórico como una línea. Eliminar el bullet activo.
 
 ## Calidad y Resolución de Dependencias
