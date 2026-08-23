@@ -1,0 +1,7 @@
+name: backend-auth-oauth-agent-skill
+version: 1.0.0
+author: Agent-Rules-Ecosystem
+description: "Backend OAuth2 / JWT authentication skill."
+compatible_rules:
+  - backend-agent-rules
+dependencies: []
