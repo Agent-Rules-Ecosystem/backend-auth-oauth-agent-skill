@@ -27,8 +27,22 @@
 
 ---
 
-## 📦 Instalación
+## ⚡ Quick Start
 
+**1. Instala la skill como submódulo**
 ```bash
-git submodule add https://github.com/xolotl-hub/backend-auth-oauth-agent-skill.git .skill/backend-auth-oauth-agent-skill
+git submodule add git@github.com:Agent-Rules-Ecosystem/backend-auth-oauth-agent-skill.git .skill/backend-auth-oauth-agent-skill
 ```
+
+**2. Activa la skill con `$boot`**
+```text
+$boot
+```
+
+**3. Ejecuta el primer comando de la skill**
+```text
+$work integrar OAuth2 con Google para autenticación
+```
+
+---
+
